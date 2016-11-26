@@ -1,0 +1,36 @@
+﻿<Window x:Class="WebExtensionPack.InstallerProgress"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Installing extensions" Height="164.391" Width="500" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Black" SizeToContent="Height" Topmost="True">
+    <Grid Background="#FFF0F0F0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Name="lblText" Margin="5" Content="Preparing to install extensions..." />
+
+        <ProgressBar Grid.Row="1" Name="bar" HorizontalAlignment="Stretch" Height="25" Margin="10 5 10 5" />
+
+        <StackPanel Grid.Row="2"
+                    Grid.ColumnSpan="3"
+                    Margin="10"
+                    x:Name="Extensions">
+            
+        </StackPanel>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnCancel" Grid.Column="2" Content="Cancel" HorizontalAlignment="Right" Margin="0 0 10 0" VerticalAlignment="Bottom" Width="75" IsCancel="True" Click="btnCancel_Click" />
+        </Grid>
+    </Grid>
+</Window>

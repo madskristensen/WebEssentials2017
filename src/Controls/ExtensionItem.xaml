@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="WebExtensionPack.Controls.ExtensionItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:WebExtensionPack.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="25" Height="25"
+             d:DesignWidth="400">
+    <UserControl.Resources>
+        <Storyboard x:Key="Storyboard1"
+                    RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                           Storyboard.TargetName="ellipse"
+                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:02"
+                                      Value="360" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard Storyboard="{StaticResource Storyboard1}" />
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid Height="25">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="363*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="GridLoading"
+              Grid.Column="0"
+              Visibility="Collapsed">
+            <Ellipse x:Name="ellipse"
+                     Margin="7"
+                     StrokeThickness="3"
+                     RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform />
+                        <SkewTransform />
+                        <RotateTransform />
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+                <Ellipse.Stroke>
+                    <LinearGradientBrush EndPoint="0.445,0.997"
+                                         StartPoint="0.555,0.003">
+                        <GradientStop Color="White"
+                                      Offset="0" />
+                        <GradientStop Color="#FF0052FF"
+                                      Offset="1" />
+                    </LinearGradientBrush>
+                </Ellipse.Stroke>
+            </Ellipse>
+        </Grid>
+
+        <Grid x:Name="GridTick"
+              Grid.Column="0"
+              Visibility="Collapsed">
+            <Path Data="M465.398469957348,2.284039510414E-06C482.459535631177,-7.61341652832925E-07 499.520570787427,-7.61341652832925E-07 516.589754137036,2.284039510414E-06 519.715974840161,4.35931638350303 504.222078355786,9.83137658705527 495.651124986645,15.5573039399605 369.009920152661,100.241870437763 263.848604234692,210.585139785908 169.875505479809,318.99998048415 112.043924364087,266.893931900166 60.7961788501707,210.390620742939 0,160.277934585713 10.2915821399656,149.517451797627 23.4670200672117,140.696284805439 39.5505962696043,133.819682632588 67.6463871326414,148.99883607497 91.5659046497312,162.881587539814 125.526414903637,179.184352432392 130.292497667309,181.463908706806 162.467790636059,196.205531631611 165.214326890942,196.065074478291 171.321382555005,195.740977798603 187.712007555005,176.40232423415 197.793550523755,168.061854873798 270.811983140942,107.610042129658 375.722932847973,39.4010119782906 465.398469957348,2.284039510414E-06z"
+                  Stretch="Uniform"
+                  Fill="#FF0B7A00"
+                  Width="16"
+                  Height="16"
+                  Margin="0,0,0,0"
+                  RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TransformGroup.Children>
+                            <RotateTransform Angle="0" />
+                            <ScaleTransform ScaleX="1"
+                                            ScaleY="1" />
+                        </TransformGroup.Children>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+
+        </Grid>
+
+        <Grid x:Name="GridPending"
+              Grid.Column="0">
+            <Path Data="M27.270001,0L44.310001,0 44.310001,48.643002 27.270001,48.643002z M0,0L17.040001,0 17.040001,48.643002 0,48.643002z"
+                  Stretch="Uniform"
+                  Fill="#FF292929"
+                  Width="16"
+                  Height="16"
+                  Margin="0,0,0,0"
+                  RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TransformGroup.Children>
+                            <RotateTransform Angle="0" />
+                            <ScaleTransform ScaleX="1"
+                                            ScaleY="1" />
+                        </TransformGroup.Children>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+        </Grid>
+
+        <TextBlock x:Name="ExtensionName"
+                   Grid.Column="2"
+                   FontSize="13.333"
+                   Margin="2.915,4,10,3"
+                   Text="Extension" VerticalAlignment="Center"></TextBlock>
+
+    </Grid>
+</UserControl>
