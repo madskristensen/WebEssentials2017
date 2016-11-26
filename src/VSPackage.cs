@@ -87,9 +87,11 @@ namespace WebExtensionPack
             return;
 #endif
 
+            GalleryEntry entry = null;
+
             try
             {
-                GalleryEntry entry = repository.CreateQuery<GalleryEntry>(includeTypeInQuery: false, includeSkuInQuery: true, searchSource: "ExtensionManagerUpdate")
+                entry = repository.CreateQuery<GalleryEntry>(includeTypeInQuery: false, includeSkuInQuery: true, searchSource: "ExtensionManagerUpdate")
                                                                                  .Where(e => e.VsixID == product.Key)
                                                                                  .AsEnumerable()
                                                                                  .FirstOrDefault();
@@ -98,12 +100,18 @@ namespace WebExtensionPack
                 {
                     var installable = repository.Download(entry);
                     manager.Install(installable, false);
-                    store.PreviouslyInstalledExtensions.Add(entry.VsixID);
                 }
             }
             catch (Exception ex)
             {
                 Logger.Log(ex);
+            }
+            finally
+            {
+                if (entry != null)
+                {
+                    store.PreviouslyInstalledExtensions.Add(entry.VsixID);
+                }
             }
         }
 
