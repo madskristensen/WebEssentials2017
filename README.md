@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/396fcla9uvo7s15e?svg=true)](https://ci.appveyor.com/project/madskristensen/webextensionpack2017)
 
 Download the extension at the
-[VS Gallery](https://visualstudiogallery.msdn.microsoft.com/f3b504c6-0095-42f1-a989-51d5fc2a8459)
+[VS Marketplace](https://marketplace.visualstudio.com/vsgallery/a5a27916-2099-4c5b-a3ff-6a46e4b01298)
 or get the
 [nightly build](http://vsixgallery.com/extension/bb7e2273-9a70-4e5e-b4dd-1f361b6166c0/)
 
@@ -32,11 +32,9 @@ Visual Studio, the following extensions will be installed:
 - [Markdown Editor](https://visualstudiogallery.msdn.microsoft.com/eaab33c3-437b-4918-8354-872dfe5d1bfe)
 - [Open Command Line](https://visualstudiogallery.msdn.microsoft.com/4e84e2cf-2d6b-472a-b1e2-b84932511379)
 - [Package Installer](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74)
-- [Suggested Extensions](https://visualstudiogallery.msdn.microsoft.com/3be88243-8bf1-407a-a7ca-a968d0de2d59)
 - [Syntax Highlighting Pack](https://visualstudiogallery.msdn.microsoft.com/d92fd742-bab3-4314-b866-50b871d679ee)
 - [Web Accessibility Checker](https://visualstudiogallery.msdn.microsoft.com/3aabefab-1681-4fea-8f95-6a62e2f0f1ec)
 - [Web Compiler](https://visualstudiogallery.msdn.microsoft.com/3b329021-cd7a-4a01-86fc-714c2d05bb6c)
-- [Web Essentials 2015](https://visualstudiogallery.msdn.microsoft.com/ee6e6d8c-c837-41fb-886a-6b50ae2d06a2)
 
 If you already have one or more of these extensions installed,
 Web Extension Pack will not re-install them. It will simply
@@ -50,7 +48,6 @@ interest.
 - [NPM Task Runner](https://visualstudiogallery.msdn.microsoft.com/8f2f2cbc-4da5-43ba-9de2-c9d08ade4941)
 - [Client-Side Library Installer](https://visualstudiogallery.msdn.microsoft.com/4cd5e0e0-2c38-426b-9f43-1d3688cc8be1)
 - [Open in VS Code](https://visualstudiogallery.msdn.microsoft.com/33f6f3fd-68e8-4783-b934-ece91a08d265)
-- [SideWaffle Template Pack](https://visualstudiogallery.msdn.microsoft.com/a16c2d07-b2e1-4a25-87d9-194f04e7a698)
 - [Text Generator](https://visualstudiogallery.msdn.microsoft.com/4d809607-87dd-445c-8cd4-585da67c6beb)
 - [Trailing Whitespace Visualizer](https://visualstudiogallery.msdn.microsoft.com/a204e29b-1778-4dae-affd-209bea658a59)
 
