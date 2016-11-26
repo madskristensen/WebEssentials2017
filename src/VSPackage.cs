@@ -10,33 +10,33 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace WebExtensionPack
 {
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
-    [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
-    [Guid(Vsix.Id)]
+    [ProvideAutoLoad(UIContextGuids80.NoSolution)]
+    [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     public sealed class VSPackage : Package
     {
         protected override void Initialize()
         {
             Logger.Initialize(this, Vsix.Name);
-            ResetExtensions.Initialize(this);
 
-            Dispatcher.CurrentDispatcher.BeginInvoke(new System.Action(async () =>
+            ThreadHelper.Generic.BeginInvoke(DispatcherPriority.SystemIdle, async () =>
             {
                 try
                 {
-                    await Install();
+                    await InstallAsync();
                 }
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
                 }
+            });
 
-            }), DispatcherPriority.SystemIdle, null);
+            ResetExtensions.Initialize(this);
         }
 
-        private async System.Threading.Tasks.Task Install()
+        private async System.Threading.Tasks.Task InstallAsync()
         {
             var repository = (IVsExtensionRepository)GetService(typeof(SVsExtensionRepository));
             var manager = (IVsExtensionManager)GetService(typeof(SVsExtensionManager));
@@ -60,7 +60,7 @@ namespace WebExtensionPack
             {
                 foreach (var product in allToBeInstalled)
                 {
-                    if (!dialog.IsVisible)
+                    if (dialog.IsCancelled)
                         break; // User canceled the dialog
 
                     dialog.StartDownloading(product.Key);
@@ -72,7 +72,7 @@ namespace WebExtensionPack
                 store.Save();
             });
 
-            if (dialog != null && dialog.IsVisible)
+            if (dialog != null && !dialog.IsCancelled)
             {
                 dialog.Close();
                 dialog = null;

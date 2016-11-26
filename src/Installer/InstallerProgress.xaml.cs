@@ -29,6 +29,8 @@ namespace WebExtensionPack
             InitializeComponent();
         }
 
+        public bool IsCancelled { get; private set; }
+
         public void SetMessage(string message)
         {
             Dispatcher.Invoke(new Action(() =>
@@ -41,7 +43,7 @@ namespace WebExtensionPack
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Hidden;
+            IsCancelled = true;
             Close();
         }
 

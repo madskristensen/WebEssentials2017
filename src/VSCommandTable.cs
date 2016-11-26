@@ -12,8 +12,8 @@ namespace WebExtensionPack
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidVSPackageString = "92e3e73b-510f-45bb-8aee-c637e83778b3";
-        public const string guidVSPackageCmdSetString = "341f258c-125f-4997-81f0-812fbfb6577a";
+        public const string guidVSPackageString = "f168228c-63f6-4db0-b426-43c30e9d1fc7";
+        public const string guidVSPackageCmdSetString = "9232585f-9c24-4dc7-bce8-985261542acf";
         public static Guid guidVSPackage = new Guid(guidVSPackageString);
         public static Guid guidVSPackageCmdSet = new Guid(guidVSPackageCmdSetString);
     }
@@ -23,6 +23,6 @@ namespace WebExtensionPack
     internal sealed partial class PackageIds
     {
         public const int MyMenuGroup = 0x1020;
-        public const int ResetExtensions = 0x0100;
+        public const int ResetExtensions = 0x0200;
     }
 }

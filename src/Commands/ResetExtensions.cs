@@ -16,7 +16,7 @@ namespace WebExtensionPack
         {
             _package = package;
 
-            OleMenuCommandService commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
+            var commandService = (OleMenuCommandService)ServiceProvider.GetService(typeof(IMenuCommandService));
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(PackageGuids.guidVSPackageCmdSet, PackageIds.ResetExtensions);
