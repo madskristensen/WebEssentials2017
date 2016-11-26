@@ -1,11 +1,11 @@
 # Web Extension Pack
 
-[![Build status](https://ci.appveyor.com/api/projects/status/7yqisx9nepdo5auu?svg=true)](https://ci.appveyor.com/project/madskristensen/webextensionpack)
+[![Build status](https://ci.appveyor.com/api/projects/status/396fcla9uvo7s15e?svg=true)](https://ci.appveyor.com/project/madskristensen/webextensionpack2017)
 
 Download the extension at the
 [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/f3b504c6-0095-42f1-a989-51d5fc2a8459)
 or get the
-[nightly build](http://vsixgallery.com/extension/92e3e73b-510f-45bb-8aee-c637e83778b3/)
+[nightly build](http://vsixgallery.com/extension/bb7e2273-9a70-4e5e-b4dd-1f361b6166c0/)
 
 ------------------------------------
 
