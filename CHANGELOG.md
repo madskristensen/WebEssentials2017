@@ -11,6 +11,11 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.1
+
+- [x] Added HTML Tools
+- [x] Added CSS Tools
+
 ## 1.0
 
 - [ ] Initial release for VS 2017
