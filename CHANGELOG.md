@@ -11,6 +11,11 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.2
+
+- [x] Added Package Security Alerts
+- [x] Added TypeScript Definition Generator
+
 ## 1.1
 
 - [x] Added HTML Tools
