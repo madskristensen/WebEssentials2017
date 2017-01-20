@@ -15,6 +15,7 @@ on the official Visual Studio extension gallery.
 
 - [x] Added Package Security Alerts
 - [x] Added TypeScript Definition Generator
+- [x] Added ZenCoding
 
 ## 1.1
 

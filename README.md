@@ -39,6 +39,7 @@ Visual Studio, the following extensions will be installed:
 - [TypeScript Definition Generator](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.TypeScriptDefinitionGenerator)
 - [Web Accessibility Checker](https://visualstudiogallery.msdn.microsoft.com/3aabefab-1681-4fea-8f95-6a62e2f0f1ec)
 - [Web Compiler](https://visualstudiogallery.msdn.microsoft.com/3b329021-cd7a-4a01-86fc-714c2d05bb6c)
+- [ZenCoding](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ZenCoding)
 
 If you already have one or more of these extensions installed,
 Web Extension Pack will not re-install them. It will simply
