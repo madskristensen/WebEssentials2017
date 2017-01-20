@@ -31,6 +31,7 @@ namespace WebExtensionPack
                 { "0020efc9-e999-4e6f-a2b6-604127f480bc", "CSS Tools" },
                 { "1fd37423-142f-4267-8221-93163d573b90", "Package Security Alerts" },
                 { "cad7b20b-4b83-4ca6-bf24-ca36a494241c", "TypeScript Definition Generator" },
+                { "9514d70e-a7b1-4876-847d-b0d2ad0962bf", "ZenCoding" },
             };
         }
     }
