@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="bb7e2273-9a70-4e5e-b4dd-1f361b6166c0" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
+    <Identity Id="bb7e2273-9a70-4e5e-b4dd-1f361b6166c0" Version="1.3" Language="en-US" Publisher="Mads Kristensen" />
     <DisplayName>Web Extension Pack 2017</DisplayName>
     <Description xml:space="preserve">The easiest way to set up Visual Studio for the ultimate web development experience.</Description>
     <MoreInfo>https://visualstudiogallery.msdn.microsoft.com/f3b504c6-0095-42f1-a989-51d5fc2a8459</MoreInfo>

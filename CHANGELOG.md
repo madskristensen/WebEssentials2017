@@ -11,6 +11,10 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.3
+
+- [x] Added EditorConfig Language Service
+
 ## 1.2
 
 - [x] Added Package Security Alerts
