@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.ExtensionManager;
 
-namespace WebExtensionPack
+namespace WebEssentials
 {
     public class GalleryEntry : IRepositoryEntry
     {

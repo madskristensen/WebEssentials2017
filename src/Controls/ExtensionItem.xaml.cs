@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WebExtensionPack.Controls
+namespace WebEssentials.Controls
 {
     /// <summary>
     /// Interaction logic for ExtensionItem.xaml

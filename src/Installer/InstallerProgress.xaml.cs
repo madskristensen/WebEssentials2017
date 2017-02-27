@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
-using WebExtensionPack.Controls;
+using WebEssentials.Controls;
 
-namespace WebExtensionPack
+namespace WebEssentials
 {
     public partial class InstallerProgress : Window
     {

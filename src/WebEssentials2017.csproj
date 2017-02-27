@@ -21,8 +21,8 @@
     <ProjectGuid>{D5750D1B-78E2-458D-AC17-802394EB81A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebExtensionPack</RootNamespace>
-    <AssemblyName>WebExtensionPack</AssemblyName>
+    <RootNamespace>WebEssentials</RootNamespace>
+    <AssemblyName>WebEssentials</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>true</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
@@ -229,9 +229,7 @@
   <ItemGroup>
     <Content Include="Resources\Icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Preview.png">
-      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

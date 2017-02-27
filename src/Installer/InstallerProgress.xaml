@@ -1,4 +1,4 @@
-﻿<Window x:Class="WebExtensionPack.InstallerProgress"
+﻿<Window x:Class="WebEssentials.InstallerProgress"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Installing extensions" Height="164.391" Width="500" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Black" SizeToContent="Height" Topmost="True">
