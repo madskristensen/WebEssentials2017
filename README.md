@@ -1,4 +1,4 @@
-# Web Extension Pack
+# Web Essentials 2017
 
 [![Build status](https://ci.appveyor.com/api/projects/status/d99l7mvb0wcf5523?svg=true)](https://ci.appveyor.com/project/madskristensen/webessentials2017)
 
@@ -15,7 +15,7 @@ highly valuable extensions targeted web development.
 See the [change log](CHANGELOG.md) for changes and road map.
 
 ## Extensions
-After installing the Web Extension Pack and restarting
+After installing the Web Essentials and restarting
 Visual Studio, the following extensions will be installed:
 
 - [Add New File](https://visualstudiogallery.msdn.microsoft.com/3f820e99-6c0d-41db-aa74-a18d9623b1f3)
@@ -42,7 +42,7 @@ Visual Studio, the following extensions will be installed:
 - [ZenCoding](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.ZenCoding)
 
 If you already have one or more of these extensions installed,
-Web Extension Pack will not re-install them. It will simply
+Web Essentials will not re-install them. It will simply
 just skip them.
 
 ### Honorable mentions
@@ -66,11 +66,10 @@ When installation is done you will be prompted to restart
 Visual Studio. After the restart, all the extensions are
 fully functional and ready to use.
 
-## Reset Web Extension Pack
-If you've uninstalled any of the extensions installed by Web Extension
-Pack, then those extensions won't be installed again automatically.
+## Reset Web Essentials
+If you've uninstalled any of the extensions installed by Web Essentials, then those extensions won't be installed again automatically.
 
-To reset this behavior go to _Tools -> Reset Web Extension Pack..._
+To reset this behavior go to _Tools -> Reset Web Essentials..._
 
 ## Suggest new extensions
 If you know of any good extensions that you think would benefit web

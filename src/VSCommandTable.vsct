@@ -18,7 +18,7 @@
                 <Icon guid="ImageCatalogGuid" id="DownloadWebSettings" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Reset Web Extension Pack...</ButtonText>
+                    <ButtonText>Reset Web Essentials...</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
