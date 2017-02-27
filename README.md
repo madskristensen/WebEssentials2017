@@ -1,6 +1,6 @@
 # Web Extension Pack
 
-[![Build status](https://ci.appveyor.com/api/projects/status/396fcla9uvo7s15e?svg=true)](https://ci.appveyor.com/project/madskristensen/webextensionpack2017)
+[![Build status](https://ci.appveyor.com/api/projects/status/d99l7mvb0wcf5523?svg=true)](https://ci.appveyor.com/project/madskristensen/webessentials2017)
 
 Download the extension at the
 [VS Marketplace](https://marketplace.visualstudio.com/vsgallery/a5a27916-2099-4c5b-a3ff-6a46e4b01298)
