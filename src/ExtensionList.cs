@@ -30,7 +30,6 @@ namespace WebEssentials
                 { "3cef2919-d8c7-4e9f-a809-5a0ba9c61fac", "HTML Tools" },
                 { "0020efc9-e999-4e6f-a2b6-604127f480bc", "CSS Tools" },
                 { "1fd37423-142f-4267-8221-93163d573b90", "Package Security Alerts" },
-                { "cad7b20b-4b83-4ca6-bf24-ca36a494241c", "TypeScript Definition Generator" },
                 { "9514d70e-a7b1-4876-847d-b0d2ad0962bf", "ZenCoding" },
                 { "1209461d-57f8-46a4-814a-dbe5fecef941", "EditorConfig Language Service" },
             };
