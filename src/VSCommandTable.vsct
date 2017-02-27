@@ -3,7 +3,6 @@
 
     <Extern href="stdidcmd.h"/>
     <Extern href="vsshlids.h"/>
-    <Include href="KnownImageIds.vsct"/>
 
     <Commands package="guidVSPackage">
         <Groups>
@@ -15,7 +14,7 @@
         <Buttons>
             <Button guid="guidVSPackageCmdSet" id="ResetExtensions" priority="0x0100" type="Button">
                 <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
-                <Icon guid="ImageCatalogGuid" id="DownloadWebSettings" />
+                <Icon guid="icons" id="small" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
                     <ButtonText>Reset Web Essentials...</ButtonText>
@@ -30,6 +29,10 @@
         <GuidSymbol name="guidVSPackageCmdSet" value="{9232585f-9c24-4dc7-bce8-985261542acf}">
             <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="ResetExtensions" value="0x0200" />
+        </GuidSymbol>
+
+        <GuidSymbol name="icons" value="{26d84633-82d5-440d-af48-28e57bcab783}">
+            <IDSymbol name="small" value="1" />
         </GuidSymbol>
     </Symbols>
 </CommandTable>
