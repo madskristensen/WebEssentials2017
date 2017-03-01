@@ -11,6 +11,10 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.4
+
+- [x] Added Vue.js Pack 2017
+
 ## 1.3
 
 - [x] Added EditorConfig Language Service
