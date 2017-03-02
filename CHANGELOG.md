@@ -14,6 +14,7 @@ on the official Visual Studio extension gallery.
 ## 1.4
 
 - [x] Added Vue.js Pack 2017
+- [x] Added JavaScript Transpiler
 
 ## 1.3
 
