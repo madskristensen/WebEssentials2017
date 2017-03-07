@@ -11,7 +11,7 @@ namespace WebEssentials
         public const string Name = "Web Essentials 2017";
         public const string Description = @"The easiest way to set up Visual Studio for the ultimate web development experience.";
         public const string Language = "en-US";
-        public const string Version = "1.4";
+        public const string Version = "1.5";
         public const string Author = "Mads Kristensen";
         public const string Tags = "extensions, vsix, install";
     }

@@ -31,6 +31,8 @@ namespace WebEssentials
                 { "1209461d-57f8-46a4-814a-dbe5fecef941", "EditorConfig Language Service" },
                 { "4163aa08-9878-4b1c-a1ee-58ab67f7db5b", "Vue.js Pack 2017" },
                 { "d6330ef4-ab82-4ab1-9828-4e43639e7521", "JavaScript Transpiler" },
+                { "e22f3d7e-6b01-4ef8-b3cb-ea293a87b00e", "Project File Tools" },
+                { "Microsoft.VisualStudio.RazorExtension", "Razor Language Services" },
             };
         }
     }

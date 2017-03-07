@@ -11,6 +11,11 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 1.5
+
+- [x] Project File Tools
+- [x] Razor Language Service
+
 ## 1.4
 
 - [x] Added Vue.js Pack 2017
