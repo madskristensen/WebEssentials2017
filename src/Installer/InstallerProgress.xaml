@@ -1,7 +1,7 @@
 ﻿<Window x:Class="WebEssentials.InstallerProgress"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Installing extensions" Height="164.391" Width="500" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Black" SizeToContent="Height" Topmost="True">
+        Title="Installing extensions" Height="164.391" Width="500" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" ResizeMode="NoResize" BorderBrush="Black" SizeToContent="Height">
     <Grid Background="#FFF0F0F0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -21,7 +21,7 @@
                     Grid.ColumnSpan="3"
                     Margin="10"
                     x:Name="Extensions">
-            
+
         </StackPanel>
 
         <Grid Grid.Row="3" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0 10">
