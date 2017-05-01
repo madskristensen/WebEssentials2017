@@ -108,10 +108,7 @@ namespace WebEssentials
             }
             finally
             {
-                if (entry != null)
-                {
-                    store.PreviouslyInstalledExtensions.Add(entry.VsixID);
-                }
+                store.PreviouslyInstalledExtensions.Add(product.Key);
             }
         }
 
