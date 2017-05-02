@@ -91,12 +91,9 @@ namespace WebEssentials
 
             try
             {
-                entry = repository.CreateQuery<GalleryEntry>(includeTypeInQuery: false, includeSkuInQuery: true, searchSource: "ExtensionManagerUpdate")
-                                                                                 .Where(e => e.VsixID == product.Key)
-                                                                                 .AsEnumerable()
-                                                                                 .FirstOrDefault();
+                entry = repository.GetVSGalleryExtensions<GalleryEntry>(new List<string> { product.Key }, 1033, false)?.FirstOrDefault();
 
-                if (entry != null)
+               if (entry != null)
                 {
                     var installable = repository.Download(entry);
                     manager.Install(installable, false);
