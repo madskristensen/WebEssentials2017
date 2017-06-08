@@ -7,6 +7,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Tasks = System.Threading.Tasks;
+using Microsoft.VisualStudio.TaskStatusCenter;
 
 namespace WebEssentials
 {
@@ -61,9 +62,27 @@ namespace WebEssentials
             var manager = await GetServiceAsync(typeof(SVsExtensionManager)) as IVsExtensionManager;
             Version vsVersion = GetVisualStudioVersion();
 
-            await Installer.RunAsync(vsVersion, repository, manager, cancellationToken);
+            ITaskHandler handler = await SetupTaskStatusCenter();
+            Tasks.Task task = Installer.RunAsync(vsVersion, repository, manager, handler.UserCancellation);
+
+            handler.RegisterTask(task);
 
             _installTime = DateTime.Now;
+        }
+
+        private async Tasks.Task<ITaskHandler> SetupTaskStatusCenter()
+        {
+            var tsc = await GetServiceAsync(typeof(SVsTaskStatusCenterService)) as IVsTaskStatusCenterService;
+
+            var options = default(TaskHandlerOptions);
+            options.Title = Vsix.Name;
+            options.DisplayTaskDetails = new Action<Tasks.Task>((t) => {  });
+            options.ActionsAfterCompletion = CompletionActions.RetainAndNotifyOnFaulted | CompletionActions.RetainAndNotifyOnRanToCompletion;
+
+            var data = default(TaskProgressData);
+            data.CanBeCanceled = true;
+
+            return tsc.PreRegister(options, data);
         }
 
         public static Version GetVisualStudioVersion()

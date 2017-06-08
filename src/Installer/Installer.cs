@@ -55,7 +55,7 @@ namespace WebEssentials
 
         private async Task InstallAsync(IEnumerable<ExtensionEntry> extensions, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken token)
         {
-            if (!extensions.Any())
+            if (!extensions.Any() || token.IsCancellationRequested)
                 return;
 
 //#if DEBUG
@@ -94,7 +94,7 @@ namespace WebEssentials
 
         private async Task UninstallAsync(IEnumerable<ExtensionEntry> extensions, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken token)
         {
-            if (!extensions.Any())
+            if (!extensions.Any() || token.IsCancellationRequested)
                 return;
 
             await Task.Run(() =>
@@ -105,7 +105,6 @@ namespace WebEssentials
                     {
                         if (token.IsCancellationRequested)
                             return;
-
 
                         try
                         {
