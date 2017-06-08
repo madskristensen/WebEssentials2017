@@ -4,7 +4,7 @@ namespace WebEssentials
 {
     public class Constants
     {
-        public const string LiveFeedUrl = "https://cdn.rawgit.com/madskristensen/WebEssentials2017/master/extensions.json";
+        public const string LiveFeedUrl = "https://raw.githubusercontent.com/madskristensen/WebEssentials2017/master/extensions.json";//"https://cdn.rawgit.com/madskristensen/WebEssentials2017/master/extensions.json";
         public static readonly string LiveFeedCachePath = Environment.ExpandEnvironmentVariables("%localAppData%\\" + Vsix.Name + "\\feed.json");
         public static readonly string LogFile = Environment.ExpandEnvironmentVariables("%localAppData%\\" + Vsix.Name + "\\installer.log");
 

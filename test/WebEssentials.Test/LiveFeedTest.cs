@@ -1,8 +1,7 @@
-using WebEssentials;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WebEssentials.Test
 {
@@ -22,7 +21,7 @@ namespace WebEssentials.Test
         public async Task UpdateAsync()
         {
             var file = new FileInfo("..\\..\\artifacts\\feed.json");
-            var feed = new LiveFeed(new StaticRegistryKey(), file.FullName, _localPath);
+            var feed = new LiveFeed(file.FullName, _localPath);
 
             await feed.UpdateAsync();
             File.Delete(_localPath);
@@ -36,7 +35,7 @@ namespace WebEssentials.Test
         [TestMethod]
         public async Task UpdateInvalidJSONAsync()
         {
-            var feed = new LiveFeed(new StaticRegistryKey(), "http://example.com", _localPath);
+            var feed = new LiveFeed("http://example.com", _localPath);
 
             await feed.UpdateAsync();
 
@@ -47,7 +46,7 @@ namespace WebEssentials.Test
         [TestMethod]
         public async Task Update404Async()
         {
-            var feed = new LiveFeed(new StaticRegistryKey(), "http://asdlfkhasdflijsdflisjdfjoi23498734so08s0d8f.dk", _localPath);
+            var feed = new LiveFeed("http://asdlfkhasdflijsdflisjdfjoi23498734so08s0d8f.dk", _localPath);
 
             await feed.UpdateAsync();
 
@@ -58,7 +57,7 @@ namespace WebEssentials.Test
         [TestMethod]
         public async Task ParsingAsync()
         {
-            var feed = new LiveFeed(new StaticRegistryKey(), "", _localPath);
+            var feed = new LiveFeed("", _localPath);
 
             string content = @"{
             ""Add New File"": {
@@ -80,7 +79,7 @@ namespace WebEssentials.Test
         [TestMethod]
         public async Task ParsingInvalidJsonAsync()
         {
-            var feed = new LiveFeed(new StaticRegistryKey(), "", _localPath);
+            var feed = new LiveFeed("", _localPath);
 
             string content = "invalid json";
 

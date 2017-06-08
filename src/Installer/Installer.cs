@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TaskStatusCenter;
 
 namespace WebEssentials
 {
@@ -47,10 +48,19 @@ namespace WebEssentials
         public async Task RunAsync(Version vsVersion, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken cancellationToken)
         {
             IEnumerable<ExtensionEntry> toUninstall = GetExtensionsMarkedForDeletion(vsVersion);
-            await UninstallAsync(toUninstall, repository, manager, cancellationToken);
-
             IEnumerable<ExtensionEntry> toInstall = GetMissingExtensions(manager).Except(toUninstall);
-            await InstallAsync(toInstall, repository, manager, cancellationToken);
+
+            int actions = toUninstall.Count() + toInstall.Count();
+
+            if (actions > 0)
+            {
+                Begin?.Invoke(this, actions);
+
+                await UninstallAsync(toUninstall, repository, manager, cancellationToken);
+                await InstallAsync(toInstall, repository, manager, cancellationToken);
+
+                Done?.Invoke(this, actions);
+            }
         }
 
         private async Task InstallAsync(IEnumerable<ExtensionEntry> extensions, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken token)
@@ -58,16 +68,16 @@ namespace WebEssentials
             if (!extensions.Any() || token.IsCancellationRequested)
                 return;
 
-//#if DEBUG
-//            // Don't install while running in debug mode
-//            foreach (var ext in extensions)
-//            {
-//                await Task.Delay(2000);
-//                Store.MarkInstalled(ext);
-//            }
-//            Store.Save();
-//            return;
-//#endif
+            //#if DEBUG
+            //            // Don't install while running in debug mode
+            //            foreach (var ext in extensions)
+            //            {
+            //                await Task.Delay(2000);
+            //                Store.MarkInstalled(ext);
+            //            }
+            //            Store.Save();
+            //            return;
+            //#endif
 
             await Task.Run(() =>
             {
@@ -106,6 +116,8 @@ namespace WebEssentials
                         if (token.IsCancellationRequested)
                             return;
 
+                        UnInstalling?.Invoke(this, ext.Name);
+
                         try
                         {
                             if (manager.TryGetInstalledExtension(ext.Id, out IInstalledExtension installedExtension))
@@ -131,13 +143,11 @@ namespace WebEssentials
         private void InstallExtension(ExtensionEntry extension, IVsExtensionRepository repository, IVsExtensionManager manager)
         {
             GalleryEntry entry = null;
+            Installing?.Invoke(this, extension.Name);
 
             try
             {
-                entry = repository.CreateQuery<GalleryEntry>(includeTypeInQuery: false, includeSkuInQuery: true, searchSource: "ExtensionManagerUpdate")
-                                                                                 .Where(e => e.VsixID == extension.Id)
-                                                                                 .AsEnumerable()
-                                                                                 .FirstOrDefault();
+                entry = repository.GetVSGalleryExtensions<GalleryEntry>(new List<string> { extension.Id }, 1033, false)?.FirstOrDefault();
 
                 if (entry != null)
                 {
@@ -174,5 +184,10 @@ namespace WebEssentials
         {
             return LiveFeed.Extensions.Where(ext => ext.MinVersion > VsVersion || ext.MaxVersion < VsVersion);
         }
+
+        public event EventHandler<int> Begin;
+        public event EventHandler<int> Done;
+        public event EventHandler<string> Installing;
+        public event EventHandler<string> UnInstalling;
     }
 }

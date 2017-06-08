@@ -1,13 +1,13 @@
-﻿using Microsoft.VisualStudio;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.ExtensionManager;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using System;
-using System.Runtime.InteropServices;
-using System.Threading;
-using Tasks = System.Threading.Tasks;
 using Microsoft.VisualStudio.TaskStatusCenter;
+using Tasks = System.Threading.Tasks;
 
 namespace WebEssentials
 {
@@ -33,8 +33,9 @@ namespace WebEssentials
     [ProvideAutoLoad(VSConstants.UICONTEXT.ShellInitialized_string, PackageAutoLoadFlags.BackgroundLoad)]
     public sealed class InstallerPackage : AsyncPackage
     {
-        public static DateTime _installTime = DateTime.MinValue;
         public const string _packageGuid = "4f2f2873-be87-4716-a4d5-3f3f047942c4";
+        private ITaskHandler _handler;
+        private DateTime _installTime = DateTime.MinValue;
 
         public static Installer Installer
         {
@@ -46,9 +47,13 @@ namespace WebEssentials
         {
             var registry = new RegistryKeyWrapper(UserRegistryRoot);
             var store = new DataStore(registry, Constants.LogFile);
-            var feed = new LiveFeed(registry, Constants.LiveFeedUrl, Constants.LiveFeedCachePath);
+            var feed = new LiveFeed(Constants.LiveFeedUrl, Constants.LiveFeedCachePath);
 
             Installer = new Installer(feed, store);
+            Installer.Begin += OnInstallationBegin;
+            Installer.Installing += OnInstalling;
+            Installer.UnInstalling += OnUnInstalling;
+            Installer.Done += OnInstallationDone;
 
             bool hasUpdates = await Installer.CheckForUpdatesAsync();
 
@@ -60,17 +65,15 @@ namespace WebEssentials
 
             var repository = await GetServiceAsync(typeof(SVsExtensionRepository)) as IVsExtensionRepository;
             var manager = await GetServiceAsync(typeof(SVsExtensionManager)) as IVsExtensionManager;
-            Version vsVersion = GetVisualStudioVersion();
+            Version vsVersion = VsHelpers.GetVisualStudioVersion();
 
-            ITaskHandler handler = await SetupTaskStatusCenter();
-            Tasks.Task task = Installer.RunAsync(vsVersion, repository, manager, handler.UserCancellation);
+            _handler = await SetupTaskStatusCenter();
+            Tasks.Task task = Installer.RunAsync(vsVersion, repository, manager, _handler.UserCancellation);
 
-            handler.RegisterTask(task);
-            VsHelpers.ShowTaskStatusCenter();
+            _handler.RegisterTask(task);
 
             _installTime = DateTime.Now;
         }
-
         private async Tasks.Task<ITaskHandler> SetupTaskStatusCenter()
         {
             var tsc = await GetServiceAsync(typeof(SVsTaskStatusCenterService)) as IVsTaskStatusCenterService;
@@ -82,16 +85,37 @@ namespace WebEssentials
 
             var data = default(TaskProgressData);
             data.CanBeCanceled = true;
+            data.ProgressText = "Installing extensions...";
 
             return tsc.PreRegister(options, data);
         }
 
-        public static Version GetVisualStudioVersion()
+        private void UpdateProgress(string text)
         {
-            var process = System.Diagnostics.Process.GetCurrentProcess();
-            System.Diagnostics.FileVersionInfo v = process.MainModule.FileVersionInfo;
+            _handler.Progress.Report(new TaskProgressData { ProgressText = text });
+        }
 
-            return new Version(v.ProductMajorPart, v.ProductMinorPart, v.ProductBuildPart);
+        private void OnUnInstalling(object sender, string name)
+        {
+            UpdateProgress($"Uninstalling {name}...");
+        }
+
+        private void OnInstalling(object sender, string name)
+        {
+            UpdateProgress($"Installing {name}...");
+        }
+
+        private void OnInstallationBegin(object sender, int count)
+        {
+            if (_handler != null && count > 0)
+            {
+                VsHelpers.ShowTaskStatusCenter();
+            }
+        }
+
+        private void OnInstallationDone(object sender, int count)
+        {
+            VsHelpers.PromptForRestart();
         }
 
         protected override void Dispose(bool disposing)

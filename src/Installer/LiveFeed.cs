@@ -9,11 +9,10 @@ namespace WebEssentials
 {
     public class LiveFeed
     {
-        public LiveFeed(IRegistryKey key, string defaultLiveFeedUrl, string cachePath)
+        public LiveFeed(string liveFeedUrl, string cachePath)
         {
             LocalCachePath = cachePath;
-
-            EnsureRegistry(key, defaultLiveFeedUrl);
+            LiveFeedUrl = liveFeedUrl;
         }
 
         public string LocalCachePath { get; }
@@ -94,21 +93,21 @@ namespace WebEssentials
             return oldContent != newContent;
         }
 
-        private void EnsureRegistry(IRegistryKey key, string defaultUrl)
-        {
-            LiveFeedUrl = defaultUrl;
+        //private void EnsureRegistry(IRegistryKey key, string defaultUrl)
+        //{
+        //    LiveFeedUrl = defaultUrl;
 
-            using (key.CreateSubKey(Constants.RegistrySubKey))
-            {
-                if (key.GetValue("path") == null)
-                {
-                    key.SetValue("path", defaultUrl);
-                }
-                else
-                {
-                    LiveFeedUrl = key.GetValue("path") as string;
-                }
-            }
-        }
+        //    using (key.CreateSubKey(Constants.RegistrySubKey))
+        //    {
+        //        if (key.GetValue("path") == null)
+        //        {
+        //            key.SetValue("path", defaultUrl);
+        //        }
+        //        else
+        //        {
+        //            LiveFeedUrl = key.GetValue("path") as string;
+        //        }
+        //    }
+        //}
     }
 }

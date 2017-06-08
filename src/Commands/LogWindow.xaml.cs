@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.ExtensionManager;
 using System;
 using System.Linq;
 using System.Windows;
+using System.Collections.Generic;
 
 namespace WebEssentials.Commands
 {
@@ -30,7 +31,7 @@ namespace WebEssentials.Commands
 
                 description.Text = "The Experimental Web Tools contain experimental features from the Visual Studio Web Team.";
 
-                var logs = InstallerPackage.Installer.Store.Log.Select(l => l.ToString());
+                IEnumerable<string> logs = InstallerPackage.Installer.Store.Log.Select(l => l.ToString());
                 log.Text = string.Join(Environment.NewLine, logs);
 
                 reset.Content = "Reset...";
@@ -41,7 +42,7 @@ namespace WebEssentials.Commands
         private async void ResetClickAsync(object sender, RoutedEventArgs e)
         {
             string msg = "This will update the list of experimental features and install all of them.\r\n\r\nDo you wish to continue?";
-            var answer = MessageBox.Show(msg, Vsix.Name, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult answer = MessageBox.Show(msg, Vsix.Name, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (answer != MessageBoxResult.Yes)
                 return;
@@ -54,7 +55,7 @@ namespace WebEssentials.Commands
                 _dte.StatusBar.Text = "Resetting Experimental Features...";
                 _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationGeneral);
 
-                var vsVersion = InstallerPackage.GetVisualStudioVersion();
+                Version vsVersion = VsHelpers.GetVisualStudioVersion();
                 await InstallerPackage.Installer.ResetAsync(vsVersion, _repository, _manager);
             }
             finally
