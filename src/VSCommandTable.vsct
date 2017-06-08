@@ -5,19 +5,13 @@
     <Extern href="vsshlids.h"/>
 
     <Commands package="guidVSPackage">
-        <Groups>
-            <Group guid="guidVSPackageCmdSet" id="MyMenuGroup" priority="0x9000">
-                <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
-            </Group>
-        </Groups>
-
         <Buttons>
             <Button guid="guidVSPackageCmdSet" id="ResetExtensions" priority="0x0100" type="Button">
-                <Parent guid="guidVSPackageCmdSet" id="MyMenuGroup" />
+                <Parent guid="guidSHLMainMenu" id="IDG_VS_TOOLS_EXT_CUST"/>
                 <Icon guid="icons" id="small" />
                 <CommandFlag>IconIsMoniker</CommandFlag>
                 <Strings>
-                    <ButtonText>Reset Web Essentials...</ButtonText>
+                    <ButtonText>Web Essentials...</ButtonText>
                 </Strings>
             </Button>
         </Buttons>
@@ -27,7 +21,6 @@
         <GuidSymbol name="guidVSPackage" value="{f168228c-63f6-4db0-b426-43c30e9d1fc7}" />
 
         <GuidSymbol name="guidVSPackageCmdSet" value="{9232585f-9c24-4dc7-bce8-985261542acf}">
-            <IDSymbol name="MyMenuGroup" value="0x1020" />
             <IDSymbol name="ResetExtensions" value="0x0200" />
         </GuidSymbol>
 

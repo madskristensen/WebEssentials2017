@@ -1,42 +1,35 @@
 ﻿using System;
-using System.Windows.Media.Imaging;
 using Microsoft.VisualStudio.ExtensionManager;
 
 namespace WebEssentials
 {
-    public class GalleryEntry : GalleryOnlineExtension, IRepositoryEntry
+    public class GalleryEntry : IRepositoryEntry
     {
-        public override string VsixID { get; set; }
-        public override string VsixVersion { get; set; }
-        public override DateTime LastModified { get; set; }
-        public override string Author { get; set; }
-        public override string Icon { get; set; }
-        public override string MoreInfoURL { get; set; }
-        public override string ReferralUrl { get; set; }
-        public override string ReportAbuseUrl { get; set; }
-        public override double Rating { get; set; }
-        public override int RatingsCount { get; set; }
-        public override int DownloadCount { get; set; }
-        public override string Name { get; set; }
-        public override string Id { get; set; }
-        public override string Description { get; set; }
+        private Version _nonNullVsixVersion;
 
-        public override float Priority => throw new NotImplementedException();
+        public string VsixID { get; set; }
+        public string DownloadUrl { get; set; }
+        public string DownloadUpdateUrl { get; set; }
+        public string VsixReferences { get; set; }
+        public string VsixVersion { get; set; }
+        public string Name { get; set; }
+        public int Ranking { get; set; }
 
-        public override BitmapSource MediumThumbnailImage => throw new NotImplementedException();
+        public Version NonNullVsixVersion
+        {
+            get
+            {
+                if (_nonNullVsixVersion == null)
+                {
+                    if (!Version.TryParse(VsixVersion, out _nonNullVsixVersion))
+                    {
+                        _nonNullVsixVersion = new Version();
+                    }
+                }
 
-        public override BitmapSource SmallThumbnailImage => throw new NotImplementedException();
-
-        public override bool IsSelected { get; set; }
-        public override string DownloadUrl { get; set; }
-        public override string DownloadUpdateUrl { get; set; }
-        public override string VsixReferences { get; set; }
-        public override string Type { get; set; }
-        public override string ProjectTypeFriendly { get; set; }
-        public override bool SupportsCodeSeparation { get; set; }
-        public override bool SupportsMasterPage { get; set; }
-        public override string OnlinePreviewImage { get; set; }
-        public override string DefaultName { get; set; }
+                return _nonNullVsixVersion;
+            }
+        }
 
         public override string ToString()
         {

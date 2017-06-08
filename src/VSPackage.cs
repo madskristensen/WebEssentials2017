@@ -1,135 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Threading;
+﻿using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.ExtensionManager;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Tasks = System.Threading.Tasks;
 
 namespace WebEssentials
 {
+    [Guid(PackageGuids.guidVSPackageString)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
-    [ProvideAutoLoad(UIContextGuids80.NoSolution)]
-    [Guid(PackageGuids.guidVSPackageString)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    public sealed class VSPackage : Package
+    public sealed class ExperimantalFeaturesPackage : AsyncPackage
     {
-        protected override void Initialize()
+        protected override async Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            Logger.Initialize(this, Vsix.Name);
+            await ShowModalCommand.InitializeAsync(this);
 
-            ThreadHelper.Generic.BeginInvoke(DispatcherPriority.SystemIdle, async () =>
-            {
-                try
-                {
-                    await InstallAsync();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Log(ex);
-                }
-            });
+            // Load installer package
+            var shell = await GetServiceAsync(typeof(SVsShell)) as IVsShell;
+            var guid = new Guid(InstallerPackage._packageGuid);
+            ErrorHandler.ThrowOnFailure(shell.LoadPackage(guid, out IVsPackage ppPackage));
+        }
+    }
 
-            ResetExtensions.Initialize(this);
+    [Guid(_packageGuid)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [ProvideAutoLoad(VSConstants.UICONTEXT.ShellInitialized_string, PackageAutoLoadFlags.BackgroundLoad)]
+    public sealed class InstallerPackage : AsyncPackage
+    {
+        public static DateTime _installTime = DateTime.MinValue;
+        public const string _packageGuid = "4f2f2873-be87-4716-a4d5-3f3f047942c4";
+
+        public static Installer Installer
+        {
+            get;
+            private set;
         }
 
-        private async System.Threading.Tasks.Task InstallAsync()
+        protected override async Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            var repository = (IVsExtensionRepository)GetService(typeof(SVsExtensionRepository));
-            var manager = (IVsExtensionManager)GetService(typeof(SVsExtensionManager));
-            var store = new DataStore();
-            var missing = GetMissingExtensions(manager, store);
+            var registry = new RegistryKeyWrapper(UserRegistryRoot);
+            var store = new DataStore(registry, Constants.LogFile);
+            var feed = new LiveFeed(registry, Constants.LiveFeedUrl, Constants.LiveFeedCachePath);
 
-            if (!missing.Any())
+            Installer = new Installer(feed, store);
+
+            bool hasUpdates = await Installer.CheckForUpdatesAsync();
+
+            if (!hasUpdates)
                 return;
 
-            var allToBeInstalled = missing.ToArray();
-            var dte = (EnvDTE.DTE)GetService(typeof(EnvDTE.DTE));
+            // Waits for MEF to initialize before the extension manager is ready to use
+            await GetServiceAsync(typeof(SComponentModel));
 
-            var hwnd = new IntPtr(dte.MainWindow.HWnd);
-            var window = (Window)System.Windows.Interop.HwndSource.FromHwnd(hwnd).RootVisual;
+            var repository = await GetServiceAsync(typeof(SVsExtensionRepository)) as IVsExtensionRepository;
+            var manager = await GetServiceAsync(typeof(SVsExtensionManager)) as IVsExtensionManager;
+            var vsVersion = GetVisualStudioVersion();
 
-            var dialog = new InstallerProgress(missing, $"Downloading extensions...");
-            dialog.Owner = window;
-            dialog.Show();
+            await Installer.RunAsync(vsVersion, repository, manager, cancellationToken);
 
-            await System.Threading.Tasks.Task.Run(() =>
-            {
-                foreach (var product in allToBeInstalled)
-                {
-                    if (dialog.IsCancelled)
-                        break; // User canceled the dialog
-
-                    dialog.StartDownloading(product.Key);
-                    dialog.SetMessage($"Installing {product.Value}...");
-                    InstallExtension(repository, manager, product, store);
-                    dialog.InstallComplete(product.Key);
-                }
-
-                store.Save();
-            });
-
-            if (dialog != null && !dialog.IsCancelled)
-            {
-                dialog.Close();
-                dialog = null;
-                PromptForRestart(allToBeInstalled.Select(ext => ext.Value));
-            }
+            _installTime = DateTime.Now;
         }
 
-        private void InstallExtension(IVsExtensionRepository repository, IVsExtensionManager manager, KeyValuePair<string, string> product, DataStore store)
+        public static Version GetVisualStudioVersion()
         {
-#if DEBUG
-            System.Threading.Thread.Sleep(1000);
-            return;
-#endif
+            var process = System.Diagnostics.Process.GetCurrentProcess();
+            var v = process.MainModule.FileVersionInfo;
 
-            GalleryEntry entry = null;
-
-            try
-            {
-                entry = repository.GetVSGalleryExtensions<GalleryEntry>(new List<string> { product.Key }, 1033, false)?.FirstOrDefault();
-
-               if (entry != null)
-                {
-                    var installable = repository.Download(entry);
-                    manager.Install(installable, false);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Log(ex);
-            }
-            finally
-            {
-                store.PreviouslyInstalledExtensions.Add(product.Key);
-            }
+            return new Version(v.ProductMajorPart, v.ProductMinorPart, v.ProductBuildPart);
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetMissingExtensions(IVsExtensionManager manager, DataStore store)
+        protected override void Dispose(bool disposing)
         {
-            var installed = manager.GetInstalledExtensions();
-            var products = ExtensionList.Products();
-            var notInstalled = products.Where(product => !installed.Any(ins => ins.Header.Identifier == product.Key)).ToArray();
-
-            return notInstalled.Where(ext => !store.HasBeenInstalled(ext.Key));
-
-        }
-
-        private void PromptForRestart(IEnumerable<string> extensions)
-        {
-            string list = string.Join(Environment.NewLine, extensions);
-            string prompt = $"The following extensions were installed:\r\r{list}\r\rDo you want to restart Visual Studio now?";
-            var answer = VsShellUtilities.ShowMessageBox(this, prompt, Vsix.Name, OLEMSGICON.OLEMSGICON_QUERY, OLEMSGBUTTON.OLEMSGBUTTON_OKCANCEL, OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_SECOND);
-
-            if (answer == (int)MessageBoxResult.OK)
+            if (disposing && _installTime != DateTime.MinValue)
             {
-                IVsShell4 shell = (IVsShell4)GetService(typeof(SVsShell));
-                shell.Restart((uint)__VSRESTARTTYPE.RESTART_Normal);
+                var minutes = (DateTime.Now - _installTime).Minutes;
+                Telemetry.RecordTimeToClose(minutes);
             }
+
+            base.Dispose(disposing);
         }
     }
 }
