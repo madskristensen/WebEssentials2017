@@ -1,0 +1,11 @@
+{
+  "Add New File": {
+    "id": "2E78AA18-E864-4FBB-B8C8-6186FC865DB3",
+    "minVersion": "15.0"
+  },
+  "test": {
+    "id": "guid",
+    "minVersion": "15.0",
+    "maxVersion": "16.0"
+  }
+}
