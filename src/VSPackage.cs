@@ -66,6 +66,7 @@ namespace WebEssentials
             Tasks.Task task = Installer.RunAsync(vsVersion, repository, manager, handler.UserCancellation);
 
             handler.RegisterTask(task);
+            VsHelpers.ShowTaskStatusCenter();
 
             _installTime = DateTime.Now;
         }

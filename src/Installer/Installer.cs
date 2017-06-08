@@ -142,6 +142,9 @@ namespace WebEssentials
                 if (entry != null)
                 {
                     IInstallableExtension installable = repository.Download(entry);
+#if DEBUG
+                    return;
+#endif
                     manager.Install(installable, false);
                     Telemetry.Install(extension.Id, true);
                 }

@@ -55,6 +55,7 @@
     <Compile Include="Commands\ShowModalCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Helpers\Telemetry.cs" />
+    <Compile Include="Helpers\VsHelpers.cs" />
     <Compile Include="Installer\DataStore.cs" />
     <Compile Include="Installer\ExtensionEntry.cs" />
     <Compile Include="Installer\GalleryEntry.cs" />

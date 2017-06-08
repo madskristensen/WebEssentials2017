@@ -3,5 +3,14 @@
     "id": "f4ab1e64-5d35-4f06-bad9-bf414f4b3bbb",
     "minVersion": "15.0",
     "maxVersion": "15.99"
+  },
+  "Package Security Alerts": {
+    "id": "1fd37423-142f-4267-8221-93163d573b90"
+  },
+  "Project File Tools": {
+    "id": "e22f3d7e-6b01-4ef8-b3cb-ea293a87b00e"
+  },
+  "Web Compiler": {
+    "id": "148ffa77-d70a-407f-892b-9ee542346862"
   }
 }
