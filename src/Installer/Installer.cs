@@ -46,10 +46,10 @@ namespace WebEssentials
 
         public async Task RunAsync(Version vsVersion, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken cancellationToken)
         {
-            var toUninstall = GetExtensionsMarkedForDeletion(vsVersion);
+            IEnumerable<ExtensionEntry> toUninstall = GetExtensionsMarkedForDeletion(vsVersion);
             await UninstallAsync(toUninstall, repository, manager, cancellationToken);
 
-            var toInstall = GetMissingExtensions(manager).Except(toUninstall);
+            IEnumerable<ExtensionEntry> toInstall = GetMissingExtensions(manager).Except(toUninstall);
             await InstallAsync(toInstall, repository, manager, cancellationToken);
         }
 
@@ -73,7 +73,7 @@ namespace WebEssentials
             {
                 try
                 {
-                    foreach (var extension in extensions)
+                    foreach (ExtensionEntry extension in extensions)
                     {
                         if (token.IsCancellationRequested)
                             return;
@@ -101,16 +101,15 @@ namespace WebEssentials
             {
                 try
                 {
-                    foreach (var ext in extensions)
+                    foreach (ExtensionEntry ext in extensions)
                     {
                         if (token.IsCancellationRequested)
                             return;
 
-                        IInstalledExtension installedExtension;
 
                         try
                         {
-                            if (manager.TryGetInstalledExtension(ext.Id, out installedExtension))
+                            if (manager.TryGetInstalledExtension(ext.Id, out IInstalledExtension installedExtension))
                             {
                                 manager.Uninstall(installedExtension);
                                 Store.MarkUninstalled(ext);
@@ -143,7 +142,7 @@ namespace WebEssentials
 
                 if (entry != null)
                 {
-                    var installable = repository.Download(entry);
+                    IInstallableExtension installable = repository.Download(entry);
                     manager.Install(installable, false);
                     Telemetry.Install(extension.Id, true);
                 }
@@ -163,8 +162,8 @@ namespace WebEssentials
 
         private IEnumerable<ExtensionEntry> GetMissingExtensions(IVsExtensionManager manager)
         {
-            var installed = manager.GetInstalledExtensions();
-            var notInstalled = LiveFeed.Extensions.Where(ext => !installed.Any(ins => ins.Header.Identifier == ext.Id));
+            IEnumerable<IInstalledExtension> installed = manager.GetInstalledExtensions();
+            IEnumerable<ExtensionEntry> notInstalled = LiveFeed.Extensions.Where(ext => !installed.Any(ins => ins.Header.Identifier == ext.Id));
 
             return notInstalled.Where(ext => !Store.HasBeenInstalled(ext.Id));
         }

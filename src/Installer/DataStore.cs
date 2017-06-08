@@ -81,7 +81,7 @@ namespace WebEssentials
 
         private void UpdateRegistry()
         {
-            var uninstall = string.Join(";", Log.Where(l => l.Action == _uninstalled).Select(l => l.Id));
+            string uninstall = string.Join(";", Log.Where(l => l.Action == _uninstalled).Select(l => l.Id));
 
             using (_key.CreateSubKey(Constants.RegistrySubKey))
             {

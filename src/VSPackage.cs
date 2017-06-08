@@ -59,7 +59,7 @@ namespace WebEssentials
 
             var repository = await GetServiceAsync(typeof(SVsExtensionRepository)) as IVsExtensionRepository;
             var manager = await GetServiceAsync(typeof(SVsExtensionManager)) as IVsExtensionManager;
-            var vsVersion = GetVisualStudioVersion();
+            Version vsVersion = GetVisualStudioVersion();
 
             await Installer.RunAsync(vsVersion, repository, manager, cancellationToken);
 
@@ -69,7 +69,7 @@ namespace WebEssentials
         public static Version GetVisualStudioVersion()
         {
             var process = System.Diagnostics.Process.GetCurrentProcess();
-            var v = process.MainModule.FileVersionInfo;
+            System.Diagnostics.FileVersionInfo v = process.MainModule.FileVersionInfo;
 
             return new Version(v.ProductMajorPart, v.ProductMinorPart, v.ProductBuildPart);
         }
@@ -78,7 +78,7 @@ namespace WebEssentials
         {
             if (disposing && _installTime != DateTime.MinValue)
             {
-                var minutes = (DateTime.Now - _installTime).Minutes;
+                int minutes = (DateTime.Now - _installTime).Minutes;
                 Telemetry.RecordTimeToClose(minutes);
             }
 

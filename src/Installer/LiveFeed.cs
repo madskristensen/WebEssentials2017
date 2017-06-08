@@ -41,9 +41,9 @@ namespace WebEssentials
                     string json = await reader.ReadToEndAsync();
                     var root = JObject.Parse(json);
 
-                    foreach (var obj in root.Children<JProperty>())
+                    foreach (JProperty obj in root.Children<JProperty>())
                     {
-                        var child = obj.Children<JProperty>();
+                        JEnumerable<JProperty> child = obj.Children<JProperty>();
 
                         var entry = new ExtensionEntry()
                         {
