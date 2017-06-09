@@ -19,8 +19,6 @@ namespace WebEssentials.Commands
             {
                 Title = Vsix.Name;
 
-                description.Text = "The Experimental Web Tools contain experimental features from the Visual Studio Web Team.";
-
                 IEnumerable<string> logs = InstallerService.Installer.Store.Log.Select(l => l.ToString()).Reverse();
                 log.Text = string.Join(Environment.NewLine, logs);
 
@@ -42,7 +40,7 @@ namespace WebEssentials.Commands
 
             try
             {
-                await InstallerService.ResetAsync();
+                await InstallerService.ResetAsync().ConfigureAwait(false);
             }
             catch (Exception ex)
             {

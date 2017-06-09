@@ -61,9 +61,9 @@ interest.
 
 ## Installing
 It doesn't take long to install the extensions. Probably less
-than a minute.
+than a minute. The progress is shown in the new Task Status Center in the left corner of the Status Bar.
 
-![Installing progress](art/progress.png)
+![Installing progress](art/task-status.png)
 
 When installation is done you will be prompted to restart
 Visual Studio. After the restart, all the extensions are

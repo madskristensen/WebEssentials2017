@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.ExtensionManager;
 using Microsoft.VisualStudio.Shell;
@@ -56,6 +55,8 @@ namespace WebEssentials
             {
                 return;
             }
+
+            _hasShownProgress = false;
 
             // Waits for MEF to initialize before the extension manager is ready to use
             await _package.GetServiceAsync(typeof(SComponentModel));

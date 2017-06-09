@@ -94,14 +94,9 @@ namespace WebEssentials
                     }
                 }
             }
-            catch (WebException)
+            catch (Exception ex)
             {
-                Logger.Log("Web Essentials couldn't check for updates. Check your internet connection");
-                return false;
-            }
-            catch
-            {
-                Logger.Log("Web Essentials couldn't check for updates");
+                System.Diagnostics.Debug.Write(ex);
                 return false;
             }
 

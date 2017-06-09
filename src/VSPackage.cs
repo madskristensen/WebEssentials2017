@@ -39,7 +39,7 @@ namespace WebEssentials
         protected override async Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             InstallerService.Initialize(this);
-            await InstallerService.RunAsync();
+            await InstallerService.RunAsync().ConfigureAwait(false);
         }
     }
 }
