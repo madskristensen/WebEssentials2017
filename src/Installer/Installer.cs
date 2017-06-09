@@ -29,11 +29,11 @@ namespace WebEssentials
 
             if (!file.Exists || file.LastWriteTime < DateTime.Now.AddDays(-Constants.UpdateIntervalDays))
             {
-                hasUpdates = await LiveFeed.UpdateAsync();
+                hasUpdates = await LiveFeed.UpdateAsync().ConfigureAwait(false);
             }
             else
             {
-                await LiveFeed.ParseAsync();
+                await LiveFeed.ParseAsync().ConfigureAwait(false);
             }
 
             return hasUpdates;
@@ -50,8 +50,8 @@ namespace WebEssentials
             {
                 _progress = new Progress(actions);
 
-                await UninstallAsync(toUninstall, repository, manager, cancellationToken);
-                await InstallAsync(toInstall, repository, manager, cancellationToken);
+                await UninstallAsync(toUninstall, repository, manager, cancellationToken).ConfigureAwait(false);
+                await InstallAsync(toInstall, repository, manager, cancellationToken).ConfigureAwait(false);
 
                 Logger.Log(Environment.NewLine + "Installation complete. Restart Visual Studio for the extensions to take effect" + Environment.NewLine);
                 Done?.Invoke(this, actions);
@@ -83,7 +83,7 @@ namespace WebEssentials
                 {
                     Store.Save();
                 }
-            });
+            }).ConfigureAwait(false);
         }
 
         private async Task UninstallAsync(IEnumerable<ExtensionEntry> extensions, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken token)
@@ -137,10 +137,12 @@ namespace WebEssentials
 
             try
             {
+                Logger.Log($"{Environment.NewLine}Looking up {extension.Name} on the Marketplace...", false);
                 entry = repository.GetVSGalleryExtensions<GalleryEntry>(new List<string> { extension.Id }, 1033, false)?.FirstOrDefault();
 
                 if (entry != null)
                 {
+                    Logger.Log("OK"); // Marketplace ok
                     Logger.Log($"Downloading {extension.Name}...", false);
 #if !DEBUG
                     IInstallableExtension installable = repository.Download(entry);
@@ -156,7 +158,10 @@ namespace WebEssentials
                     Logger.Log("OK"); // Install ok
 
                     Telemetry.Install(extension.Id, true);
-
+                }
+                else
+                {
+                    Logger.Log("Failed (skipping)"); // Markedplace failed
                 }
             }
             catch (Exception)

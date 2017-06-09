@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace WebEssentials.Commands
 {
@@ -18,6 +19,7 @@ namespace WebEssentials.Commands
             Loaded += (s, e) =>
             {
                 Title = Vsix.Name;
+                Icon = BitmapFrame.Create(new Uri("pack://application:,,,/WebEssentials;component/Resources/small.png", UriKind.RelativeOrAbsolute));
 
                 IEnumerable<string> logs = InstallerService.Installer.Store.Log.Select(l => l.ToString()).Reverse();
                 log.Text = string.Join(Environment.NewLine, logs);

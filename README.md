@@ -26,12 +26,9 @@ Visual Studio, the following extensions will be installed:
 - [Editor Enhancements](https://visualstudiogallery.msdn.microsoft.com/4f64e542-3772-4136-8f87-0113441c7aa1)
 - [File Icons](https://visualstudiogallery.msdn.microsoft.com/5e1762e8-a88b-417c-8467-6a65d771cc4e)
 - [File Nesting](https://visualstudiogallery.msdn.microsoft.com/3ebde8fb-26d8-4374-a0eb-1e4e2665070c)
-- [HTML Snippet Pack](https://visualstudiogallery.msdn.microsoft.com/57a8ac31-775a-428c-ade9-6837d183a4dc)
 - [HTML Tools](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.HtmlTools)
 - [Image Sprites](https://visualstudiogallery.msdn.microsoft.com/8bb845e9-5717-4eae-aed3-1fdf6fe5819a)
 - [Image Optimizer](https://visualstudiogallery.msdn.microsoft.com/a56eddd3-d79b-48ac-8c8f-2db06ade77c3)
-- [JavaScript Snippet Pack](https://visualstudiogallery.msdn.microsoft.com/423eb4a3-215f-4a8f-9287-1512618ffda3)
-- [JavaScript Transpiler](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.JavaScriptTranspiler)
 - [Markdown Editor](https://visualstudiogallery.msdn.microsoft.com/eaab33c3-437b-4918-8354-872dfe5d1bfe)
 - [Open Command Line](https://visualstudiogallery.msdn.microsoft.com/4e84e2cf-2d6b-472a-b1e2-b84932511379)
 - [Package Installer](https://visualstudiogallery.msdn.microsoft.com/753b9720-1638-4f9a-ad8d-2c45a410fd74)
@@ -72,7 +69,15 @@ fully functional and ready to use.
 ## Reset Web Essentials
 If you've uninstalled any of the extensions installed by Web Essentials, then those extensions won't be installed again automatically.
 
-To reset this behavior go to _Tools -> Reset Web Essentials..._
+To reset this behavior go to _Tools -> Web Essentials..._
+
+![Tools menu](art/tools-menu.png)
+
+This will show the Activity Log for Web Essentials.
+
+![Activity Log](art/activity-log.png)
+
+From here you can reset the extension. This will attempt to install any of the extensions previously uninstall or for other reasons are not currently installed.
 
 ## Suggest new extensions
 If you know of any good extensions that you think would benefit web

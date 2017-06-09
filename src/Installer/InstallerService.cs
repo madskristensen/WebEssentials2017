@@ -38,7 +38,7 @@ namespace WebEssentials
         public static async Tasks.Task ResetAsync()
         {
             Reset();
-            await RunAsync();
+            await RunAsync().ConfigureAwait(false);
         }
 
         private static void Reset()
