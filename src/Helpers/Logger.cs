@@ -10,31 +10,37 @@ internal static class Logger
 
     public static void Log(string message, bool addNewLine = true)
     {
-        try
+        ThreadHelper.Generic.BeginInvoke(() =>
         {
-            if (EnsurePane())
+            try
             {
-                if (addNewLine)
+                if (EnsurePane())
                 {
-                    message += Environment.NewLine;
-                }
+                    if (addNewLine)
+                    {
+                        message += Environment.NewLine;
+                    }
 
-                _pane.OutputString(message);
+                    _pane.OutputString(message);
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.Write(ex);
-        }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex);
+            }
+        });
     }
 
     public static void ShowOutputWindowPane()
     {
-        if (EnsurePane())
+        ThreadHelper.Generic.BeginInvoke(() =>
         {
-            VsHelpers.ShowOutputWindow();
-            _pane.Activate();
-        }
+            if (EnsurePane())
+            {
+                VsHelpers.ShowOutputWindow();
+                _pane.Activate();
+            }
+        });
     }
 
     private static bool EnsurePane()
