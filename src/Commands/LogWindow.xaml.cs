@@ -1,29 +1,19 @@
-﻿using EnvDTE;
-using EnvDTE80;
-using Microsoft.VisualStudio.ExtensionManager;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Collections.Generic;
 
 namespace WebEssentials.Commands
 {
     /// <summary>
     /// Interaction logic for LogWindow.xaml
     /// </summary>
-    public partial class LogWindow : System.Windows.Window
+    public partial class LogWindow : Window
     {
-        private DTE2 _dte;
-        private IVsExtensionRepository _repository;
-        private IVsExtensionManager _manager;
 
-        public LogWindow(DTE2 dte, IVsExtensionRepository repository, IVsExtensionManager manager)
+        public LogWindow()
         {
             InitializeComponent();
-
-            _dte = dte;
-            _repository = repository;
-            _manager = manager;
 
             Loaded += (s, e) =>
             {
@@ -31,17 +21,17 @@ namespace WebEssentials.Commands
 
                 description.Text = "The Experimental Web Tools contain experimental features from the Visual Studio Web Team.";
 
-                IEnumerable<string> logs = InstallerPackage.Installer.Store.Log.Select(l => l.ToString());
+                IEnumerable<string> logs = InstallerService.Installer.Store.Log.Select(l => l.ToString()).Reverse();
                 log.Text = string.Join(Environment.NewLine, logs);
 
-                reset.Content = "Reset...";
+                reset.Content = "Re-install...";
                 reset.Click += ResetClickAsync;
             };
         }
 
         private async void ResetClickAsync(object sender, RoutedEventArgs e)
         {
-            string msg = "This will update the list of experimental features and install all of them.\r\n\r\nDo you wish to continue?";
+            string msg = "This will reset the log and install all missing Web Essentials extensions.\r\n\r\nDo you wish to continue?";
             MessageBoxResult answer = MessageBox.Show(msg, Vsix.Name, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (answer != MessageBoxResult.Yes)
@@ -52,16 +42,11 @@ namespace WebEssentials.Commands
 
             try
             {
-                _dte.StatusBar.Text = "Resetting Web Essentials...";
-                _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationGeneral);
-
-                Version vsVersion = VsHelpers.GetVisualStudioVersion();
-                await InstallerPackage.Installer.ResetAsync(vsVersion, _repository, _manager);
+                await InstallerService.ResetAsync();
             }
-            finally
+            catch (Exception ex)
             {
-                _dte.StatusBar.Text = "Web Essentials has been reset";
-                _dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationGeneral);
+                Logger.Log(ex.ToString());
             }
         }
     }

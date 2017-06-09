@@ -12,12 +12,12 @@ namespace WebEssentials
             TelemetryService.DefaultSession.PostEvent(telEvent);
         }
 
-        public static void RecordTimeToClose(int minutes)
-        {
-            var telEvent = new OperationEvent(_namespace + "TimeToClose", TelemetryResult.Success);
-            telEvent.Properties.Add("minutes", minutes);
-            TelemetryService.DefaultSession.PostEvent(telEvent);
-        }
+        //public static void RecordTimeToClose(int minutes)
+        //{
+        //    var telEvent = new OperationEvent(_namespace + "TimeToClose", TelemetryResult.Success);
+        //    telEvent.Properties.Add("minutes", minutes);
+        //    TelemetryService.DefaultSession.PostEvent(telEvent);
+        //}
 
         public static void Install(string extensionId, bool success)
         {

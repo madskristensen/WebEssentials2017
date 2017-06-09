@@ -61,6 +61,7 @@
     <Compile Include="Installer\ExtensionEntry.cs" />
     <Compile Include="Installer\GalleryEntry.cs" />
     <Compile Include="Installer\Installer.cs" />
+    <Compile Include="Installer\InstallerService.cs" />
     <Compile Include="Installer\IRegestryKey.cs" />
     <Compile Include="Installer\LiveFeed.cs" />
     <Compile Include="Installer\Progress.cs" />

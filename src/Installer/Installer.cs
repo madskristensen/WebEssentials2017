@@ -27,13 +27,6 @@ namespace WebEssentials
             var file = new FileInfo(LiveFeed.LocalCachePath);
             bool hasUpdates = false;
 
-#if DEBUG
-            if (file.Directory.Exists)
-            {
-                Directory.Delete(file.Directory.FullName, true);
-            }
-#endif
-
             if (!file.Exists || file.LastWriteTime < DateTime.Now.AddDays(-Constants.UpdateIntervalDays))
             {
                 hasUpdates = await LiveFeed.UpdateAsync();
@@ -44,13 +37,6 @@ namespace WebEssentials
             }
 
             return hasUpdates;
-        }
-
-        public async Task ResetAsync(Version vsVersion, IVsExtensionRepository repository, IVsExtensionManager manager)
-        {
-            Store.Reset();
-            await LiveFeed.UpdateAsync();
-            await RunAsync(vsVersion, repository, manager, default(CancellationToken));
         }
 
         public async Task RunAsync(Version vsVersion, IVsExtensionRepository repository, IVsExtensionManager manager, CancellationToken cancellationToken)
@@ -67,7 +53,7 @@ namespace WebEssentials
                 await UninstallAsync(toUninstall, repository, manager, cancellationToken);
                 await InstallAsync(toInstall, repository, manager, cancellationToken);
 
-                Logger.Log(Environment.NewLine + "Installation complete. Restart Visual Studio for the extensions to take effect");
+                Logger.Log(Environment.NewLine + "Installation complete. Restart Visual Studio for the extensions to take effect" + Environment.NewLine);
                 Done?.Invoke(this, actions);
             }
         }

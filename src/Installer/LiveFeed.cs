@@ -28,6 +28,18 @@ namespace WebEssentials
             return hasUpdates;
         }
 
+        public void Reset()
+        {
+            try
+            {
+                File.Delete(LocalCachePath);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex.ToString());
+            }
+        }
+
         internal async Task ParseAsync()
         {
             if (!File.Exists(LocalCachePath))
