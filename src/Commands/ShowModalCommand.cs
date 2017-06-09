@@ -18,7 +18,7 @@ namespace WebEssentials
             _package = package;
 
             var menuCommandID = new CommandID(PackageGuids.guidVSPackageCmdSet, PackageIds.ResetExtensions);
-            var menuItem = new MenuCommand(this.ResetAsync, menuCommandID);
+            var menuItem = new MenuCommand(ResetAsync, menuCommandID);
             commandService.AddCommand(menuItem);
         }
 
@@ -45,8 +45,7 @@ namespace WebEssentials
             var hwnd = new IntPtr(dte.MainWindow.HWnd);
             var window = (System.Windows.Window)HwndSource.FromHwnd(hwnd).RootVisual;
             dialog.Owner = window;
-
-            var result = dialog.ShowDialog();
+            dialog.ShowDialog();
         }
     }
 }

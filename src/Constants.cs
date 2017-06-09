@@ -10,5 +10,11 @@ namespace WebEssentials
 
         public const double UpdateIntervalDays = 1;
         public const string RegistrySubKey = "WebEssentials2017";
+
+#if DEBUG
+        public static bool IsDebug = true;
+#else
+          public static bool IsDebug = false;
+#endif
     }
 }

@@ -82,9 +82,14 @@ namespace WebEssentials
                     }
                 }
             }
-            catch (Exception ex)
+            catch (WebException)
             {
-                System.Diagnostics.Debug.Write(ex);
+                Logger.Log("Web Essentials couldn't check for updates. Check your internet connection");
+                return false;
+            }
+            catch
+            {
+                Logger.Log("Web Essentials couldn't check for updates");
                 return false;
             }
 
@@ -92,22 +97,5 @@ namespace WebEssentials
 
             return oldContent != newContent;
         }
-
-        //private void EnsureRegistry(IRegistryKey key, string defaultUrl)
-        //{
-        //    LiveFeedUrl = defaultUrl;
-
-        //    using (key.CreateSubKey(Constants.RegistrySubKey))
-        //    {
-        //        if (key.GetValue("path") == null)
-        //        {
-        //            key.SetValue("path", defaultUrl);
-        //        }
-        //        else
-        //        {
-        //            LiveFeedUrl = key.GetValue("path") as string;
-        //        }
-        //    }
-        //}
     }
 }

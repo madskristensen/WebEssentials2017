@@ -52,7 +52,7 @@ namespace WebEssentials.Commands
 
             try
             {
-                _dte.StatusBar.Text = "Resetting Experimental Features...";
+                _dte.StatusBar.Text = "Resetting Web Essentials...";
                 _dte.StatusBar.Animate(true, vsStatusAnimation.vsStatusAnimationGeneral);
 
                 Version vsVersion = VsHelpers.GetVisualStudioVersion();
@@ -60,7 +60,7 @@ namespace WebEssentials.Commands
             }
             finally
             {
-                _dte.StatusBar.Text = "Experimental Features have been reset";
+                _dte.StatusBar.Text = "Web Essentials has been reset";
                 _dte.StatusBar.Animate(false, vsStatusAnimation.vsStatusAnimationGeneral);
             }
         }

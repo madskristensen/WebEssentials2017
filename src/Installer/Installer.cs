@@ -1,16 +1,17 @@
-﻿using Microsoft.VisualStudio.ExtensionManager;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TaskStatusCenter;
+using Microsoft.VisualStudio.ExtensionManager;
 
 namespace WebEssentials
 {
     public class Installer
     {
+        private Progress _progress;
+
         public Installer(LiveFeed feed, DataStore store)
         {
             LiveFeed = feed;
@@ -25,6 +26,13 @@ namespace WebEssentials
         {
             var file = new FileInfo(LiveFeed.LocalCachePath);
             bool hasUpdates = false;
+
+#if DEBUG
+            if (file.Directory.Exists)
+            {
+                Directory.Delete(file.Directory.FullName, true);
+            }
+#endif
 
             if (!file.Exists || file.LastWriteTime < DateTime.Now.AddDays(-Constants.UpdateIntervalDays))
             {
@@ -54,11 +62,12 @@ namespace WebEssentials
 
             if (actions > 0)
             {
-                Begin?.Invoke(this, actions);
+                _progress = new Progress(actions);
 
                 await UninstallAsync(toUninstall, repository, manager, cancellationToken);
                 await InstallAsync(toInstall, repository, manager, cancellationToken);
 
+                Logger.Log(Environment.NewLine + "Installation complete. Restart Visual Studio for the extensions to take effect");
                 Done?.Invoke(this, actions);
             }
         }
@@ -67,17 +76,6 @@ namespace WebEssentials
         {
             if (!extensions.Any() || token.IsCancellationRequested)
                 return;
-
-            //#if DEBUG
-            //            // Don't install while running in debug mode
-            //            foreach (var ext in extensions)
-            //            {
-            //                await Task.Delay(2000);
-            //                Store.MarkInstalled(ext);
-            //            }
-            //            Store.Save();
-            //            return;
-            //#endif
 
             await Task.Run(() =>
             {
@@ -111,25 +109,31 @@ namespace WebEssentials
             {
                 try
                 {
-                    foreach (ExtensionEntry ext in extensions)
+                    foreach (ExtensionEntry extension in extensions)
                     {
                         if (token.IsCancellationRequested)
                             return;
 
-                        UnInstalling?.Invoke(this, ext.Name);
+                        OnUpdate($"Uninstalling {extension.Name}...");
+                        Logger.Log($"Uninstalling {extension.Name}...", false);
 
                         try
                         {
-                            if (manager.TryGetInstalledExtension(ext.Id, out IInstalledExtension installedExtension))
+                            if (manager.TryGetInstalledExtension(extension.Id, out IInstalledExtension installedExtension))
                             {
+#if !DEBUG
                                 manager.Uninstall(installedExtension);
-                                Store.MarkUninstalled(ext);
-                                Telemetry.Uninstall(ext.Id, true);
+                                Telemetry.Uninstall(extension.Id, true);
+#endif
+
+                                Store.MarkUninstalled(extension);
+                                Logger.Log($"OK");
                             }
                         }
                         catch (Exception)
                         {
-                            Telemetry.Uninstall(ext.Id, false);
+                            Logger.Log($"Failed");
+                            Telemetry.Uninstall(extension.Id, false);
                         }
                     }
                 }
@@ -143,7 +147,7 @@ namespace WebEssentials
         private void InstallExtension(ExtensionEntry extension, IVsExtensionRepository repository, IVsExtensionManager manager)
         {
             GalleryEntry entry = null;
-            Installing?.Invoke(this, extension.Name);
+            OnUpdate($"Installing {extension.Name}...");
 
             try
             {
@@ -151,16 +155,27 @@ namespace WebEssentials
 
                 if (entry != null)
                 {
+                    Logger.Log($"Downloading {extension.Name}...", false);
+#if !DEBUG
                     IInstallableExtension installable = repository.Download(entry);
-#if DEBUG
-                    return;
 #endif
+                    Logger.Log("OK"); // Download ok
+
+                    Logger.Log($"Installing {extension.Name}...", false);
+#if !DEBUG
                     manager.Install(installable, false);
+#else
+                    Thread.Sleep(2000);
+#endif
+                    Logger.Log("OK"); // Install ok
+
                     Telemetry.Install(extension.Id, true);
+
                 }
             }
             catch (Exception)
             {
+                Logger.Log($"Failed");
                 Telemetry.Install(extension.Id, false);
             }
             finally
@@ -185,9 +200,15 @@ namespace WebEssentials
             return LiveFeed.Extensions.Where(ext => ext.MinVersion > VsVersion || ext.MaxVersion < VsVersion);
         }
 
-        public event EventHandler<int> Begin;
+        private void OnUpdate(string text)
+        {
+            _progress.Current += 1;
+            _progress.Text = text;
+
+            Update?.Invoke(this, _progress);
+        }
+
+        public event EventHandler<Progress> Update;
         public event EventHandler<int> Done;
-        public event EventHandler<string> Installing;
-        public event EventHandler<string> UnInstalling;
     }
 }

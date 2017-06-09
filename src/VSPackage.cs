@@ -36,6 +36,7 @@ namespace WebEssentials
         public const string _packageGuid = "4f2f2873-be87-4716-a4d5-3f3f047942c4";
         private ITaskHandler _handler;
         private DateTime _installTime = DateTime.MinValue;
+        private bool _hasShownProgress;
 
         public static Installer Installer
         {
@@ -50,9 +51,7 @@ namespace WebEssentials
             var feed = new LiveFeed(Constants.LiveFeedUrl, Constants.LiveFeedCachePath);
 
             Installer = new Installer(feed, store);
-            Installer.Begin += OnInstallationBegin;
-            Installer.Installing += OnInstalling;
-            Installer.UnInstalling += OnUnInstalling;
+            Installer.Update += OnUpdate;
             Installer.Done += OnInstallationDone;
 
             bool hasUpdates = await Installer.CheckForUpdatesAsync();
@@ -80,42 +79,39 @@ namespace WebEssentials
 
             var options = default(TaskHandlerOptions);
             options.Title = Vsix.Name;
-            options.DisplayTaskDetails = new Action<Tasks.Task>((t) => {  });
-            options.ActionsAfterCompletion = CompletionActions.RetainAndNotifyOnFaulted | CompletionActions.RetainAndNotifyOnRanToCompletion;
+            options.DisplayTaskDetails = task => { Logger.ShowOutputWindowPane(); };
+            options.ActionsAfterCompletion = CompletionActions.RetainAndNotifyOnRanToCompletion;
 
             var data = default(TaskProgressData);
-            data.CanBeCanceled = true;
-            data.ProgressText = "Installing extensions...";
+
 
             return tsc.PreRegister(options, data);
         }
 
-        private void UpdateProgress(string text)
+        private void OnUpdate(object sender, Progress progress)
         {
-            _handler.Progress.Report(new TaskProgressData { ProgressText = text });
-        }
-
-        private void OnUnInstalling(object sender, string name)
-        {
-            UpdateProgress($"Uninstalling {name}...");
-        }
-
-        private void OnInstalling(object sender, string name)
-        {
-            UpdateProgress($"Installing {name}...");
-        }
-
-        private void OnInstallationBegin(object sender, int count)
-        {
-            if (_handler != null && count > 0)
+            var data = new TaskProgressData
             {
+                ProgressText = progress.Text,
+                PercentComplete = progress.Percent,
+                CanBeCanceled = true
+            };
+
+            _handler.Progress.Report(data);
+
+            if (!_hasShownProgress)
+            {
+                _hasShownProgress = true;
                 VsHelpers.ShowTaskStatusCenter();
             }
         }
 
         private void OnInstallationDone(object sender, int count)
         {
-            VsHelpers.PromptForRestart();
+            if (!_handler.UserCancellation.IsCancellationRequested && count > 0)
+            {
+                VsHelpers.PromptForRestart();
+            }
         }
 
         protected override void Dispose(bool disposing)

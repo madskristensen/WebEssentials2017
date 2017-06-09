@@ -14,9 +14,19 @@ namespace WebEssentials
 
         public static void ShowTaskStatusCenter()
         {
+            RaiseEvent("View.ShowTaskStatusCenter");
+        }
+
+        public static void ShowOutputWindow()
+        {
+            RaiseEvent("View.Output");
+        }
+
+        private static void RaiseEvent(string commandName)
+        {
             ThreadHelper.Generic.BeginInvoke(DispatcherPriority.ApplicationIdle, () => {
 
-                Command cmd = DTE.Commands.Item("View.ShowTaskStatusCenter");
+                Command cmd = DTE.Commands.Item(commandName);
 
                 if (cmd != null && cmd.IsAvailable)
                 {
