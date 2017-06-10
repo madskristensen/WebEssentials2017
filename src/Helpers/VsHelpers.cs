@@ -10,7 +10,7 @@ namespace WebEssentials
 {
     public static class VsHelpers
     {
-        public static DTE2 DTE = Package.GetGlobalService(typeof(DTE)) as DTE2;
+        private static DTE2 _dte = Package.GetGlobalService(typeof(DTE)) as DTE2;
 
         public static void ShowTaskStatusCenter()
         {
@@ -26,11 +26,11 @@ namespace WebEssentials
         {
             ThreadHelper.Generic.BeginInvoke(DispatcherPriority.ApplicationIdle, () => {
 
-                Command cmd = DTE.Commands.Item(commandName);
+                Command cmd = _dte.Commands.Item(commandName);
 
                 if (cmd != null && cmd.IsAvailable)
                 {
-                    DTE.Commands.Raise(cmd.Guid, cmd.ID, null, null);
+                    _dte.Commands.Raise(cmd.Guid, cmd.ID, null, null);
                 }
             });
         }

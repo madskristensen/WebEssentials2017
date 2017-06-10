@@ -13,12 +13,12 @@ namespace WebEssentials
         {
             LocalCachePath = cachePath;
             LiveFeedUrl = liveFeedUrl;
+            Extensions = new List<ExtensionEntry>();
         }
 
         public string LocalCachePath { get; }
-        public string LiveFeedUrl { get; private set; }
-
-        public List<ExtensionEntry> Extensions { get; } = new List<ExtensionEntry>();
+        public string LiveFeedUrl { get; }
+        public List<ExtensionEntry> Extensions { get; }
 
         public async Task<bool> UpdateAsync()
         {

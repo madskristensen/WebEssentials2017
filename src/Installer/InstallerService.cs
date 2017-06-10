@@ -15,7 +15,7 @@ namespace WebEssentials
 
         public static Installer Installer
         {
-            get; set;
+            get; private set;
         }
 
         public static void Initialize(AsyncPackage package)
@@ -31,6 +31,7 @@ namespace WebEssentials
             Installer.Done += OnInstallationDone;
 
 #if DEBUG
+            // This deletes feed.json and installer.log so it finds updates
             Reset();
 #endif
         }
