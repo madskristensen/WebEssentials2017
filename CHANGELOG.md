@@ -6,7 +6,7 @@
 - [x] Log of installation actions
 - [x] Ability to uninstall extensions that are no longer recommended
   - [x] Based on user's version of VS
-- [ ] Move strings to resx file
+- [x] Move strings to resx file
 
 Features that have a checkmark are complete and available for
 download in the

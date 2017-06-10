@@ -24,14 +24,17 @@ namespace WebEssentials.Commands
                 IEnumerable<string> logs = InstallerService.Installer.Store.Log.Select(l => l.ToString()).Reverse();
                 log.Text = string.Join(Environment.NewLine, logs);
 
-                reset.Content = "Re-install...";
+                reset.Content = WebEssentials.Resources.Text.ReInstall;
+                Close.Content = WebEssentials.Resources.Text.Close;
+                ActivityLog.Content = WebEssentials.Resources.Text.ActivityLog;
+
                 reset.Click += ResetClickAsync;
             };
         }
 
         private async void ResetClickAsync(object sender, RoutedEventArgs e)
         {
-            string msg = "This will reset the log and install all missing Web Essentials extensions.\r\n\r\nDo you wish to continue?";
+            string msg = WebEssentials.Resources.Text.ResetLog;
             MessageBoxResult answer = MessageBox.Show(msg, Vsix.Name, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (answer != MessageBoxResult.Yes)

@@ -1,13 +1,10 @@
-﻿    using System;
-    using System.Runtime.InteropServices;
-    using System.Threading;
-    using Microsoft.VisualStudio;
-    using Microsoft.VisualStudio.ComponentModelHost;
-    using Microsoft.VisualStudio.ExtensionManager;
-    using Microsoft.VisualStudio.Shell;
-    using Microsoft.VisualStudio.Shell.Interop;
-    using Microsoft.VisualStudio.TaskStatusCenter;
-    using Tasks = System.Threading.Tasks;
+﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
+using Microsoft.VisualStudio;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using Tasks = System.Threading.Tasks;
 
 namespace WebEssentials
 {
@@ -34,7 +31,6 @@ namespace WebEssentials
     public sealed class InstallerPackage : AsyncPackage
     {
         public const string _packageGuid = "4f2f2873-be87-4716-a4d5-3f3f047942c4";
-
 
         protected override async Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {

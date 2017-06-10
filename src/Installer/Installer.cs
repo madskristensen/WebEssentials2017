@@ -53,7 +53,7 @@ namespace WebEssentials
                 await UninstallAsync(toUninstall, repository, manager, cancellationToken).ConfigureAwait(false);
                 await InstallAsync(toInstall, repository, manager, cancellationToken).ConfigureAwait(false);
 
-                Logger.Log(Environment.NewLine + "Installation complete. Restart Visual Studio for the extensions to take effect" + Environment.NewLine);
+                Logger.Log(Environment.NewLine + Resources.Text.InstallationComplete + Environment.NewLine);
                 Done?.Invoke(this, actions);
             }
         }
@@ -100,8 +100,10 @@ namespace WebEssentials
                         if (token.IsCancellationRequested)
                             return;
 
-                        OnUpdate($"Uninstalling {extension.Name}...");
-                        Logger.Log($"Uninstalling {extension.Name}...", false);
+                        string msg = string.Format(Resources.Text.UninstallingExtension, extension.Name);
+
+                        OnUpdate(msg);
+                        Logger.Log(msg, false);
 
                         try
                         {
@@ -113,12 +115,12 @@ namespace WebEssentials
 #endif
 
                                 Store.MarkUninstalled(extension);
-                                Logger.Log($"OK");
+                                Logger.Log(Resources.Text.Ok);
                             }
                         }
                         catch (Exception)
                         {
-                            Logger.Log($"Failed");
+                            Logger.Log(Resources.Text.Failed);
                             Telemetry.Uninstall(extension.Id, false);
                         }
                     }
@@ -133,40 +135,42 @@ namespace WebEssentials
         private void InstallExtension(ExtensionEntry extension, IVsExtensionRepository repository, IVsExtensionManager manager)
         {
             GalleryEntry entry = null;
-            OnUpdate($"Installing {extension.Name}...");
+            OnUpdate(string.Format(Resources.Text.InstallingExtension, extension.Name));
 
             try
             {
-                Logger.Log($"{Environment.NewLine}Looking up {extension.Name} on the Marketplace...", false);
+                Logger.Log($"{Environment.NewLine}{extension.Name}");
+                Logger.Log("  " + Resources.Text.Verifying, false);
+
                 entry = repository.GetVSGalleryExtensions<GalleryEntry>(new List<string> { extension.Id }, 1033, false)?.FirstOrDefault();
 
                 if (entry != null)
                 {
-                    Logger.Log("OK"); // Marketplace ok
-                    Logger.Log($"Downloading {extension.Name}...", false);
+                    Logger.Log(Resources.Text.Ok); // Marketplace ok
+                    Logger.Log("  " + Resources.Text.Downloading, false);
 #if !DEBUG
                     IInstallableExtension installable = repository.Download(entry);
 #endif
-                    Logger.Log("OK"); // Download ok
+                    Logger.Log(Resources.Text.Ok); // Download ok
 
-                    Logger.Log($"Installing {extension.Name}...", false);
+                    Logger.Log("  " + Resources.Text.Installing, false);
 #if !DEBUG
                     manager.Install(installable, false);
 #else
                     Thread.Sleep(2000);
 #endif
-                    Logger.Log("OK"); // Install ok
+                    Logger.Log(Resources.Text.Ok); // Install ok
 
                     Telemetry.Install(extension.Id, true);
                 }
                 else
                 {
-                    Logger.Log("Failed (skipping)"); // Markedplace failed
+                    Logger.Log(Resources.Text.Failed); // Markedplace failed
                 }
             }
             catch (Exception)
             {
-                Logger.Log($"Failed");
+                Logger.Log(Resources.Text.Failed);
                 Telemetry.Install(extension.Id, false);
             }
             finally
