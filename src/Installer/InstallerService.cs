@@ -23,7 +23,7 @@ namespace WebEssentials
             _package = package;
 
             var registry = new RegistryKeyWrapper(package.UserRegistryRoot);
-            var store = new DataStore(registry, Constants.LogFile);
+            var store = new DataStore(registry, Constants.LogFilePath);
             var feed = new LiveFeed(Constants.LiveFeedUrl, Constants.LiveFeedCachePath);
 
             Installer = new Installer(feed, store);

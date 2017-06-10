@@ -3,7 +3,7 @@
     <Metadata>
         <Identity Id="bb7e2273-9a70-4e5e-b4dd-1f361b6166c0" Version="1.5" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Web Essentials 2017</DisplayName>
-        <Description xml:space="preserve">The easiest way to set up Visual Studio for the ultimate web development experience.</Description>
+        <Description xml:space="preserve">The easiest way to set up Visual Studio for the ultimate web development experience. Requires Visual Studio 2017 Update 3 or newer</Description>
         <MoreInfo>https://github.com/madskristensen/WebEssentials2017</MoreInfo>
         <License>Resources\LICENSE</License>
         <ReleaseNotes>https://github.com/madskristensen/WebEssentials2017/blob/master/CHANGELOG.md</ReleaseNotes>

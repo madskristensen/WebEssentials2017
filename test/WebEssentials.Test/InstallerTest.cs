@@ -20,7 +20,7 @@ namespace WebEssentials.Test
         public void TestSetup()
         {
             _cachePath = Path.Combine(Path.GetTempPath(), "cache.json");
-            var store = new DataStore(new StaticRegistryKey(), Constants.LogFile);
+            var store = new DataStore(new StaticRegistryKey(), Constants.LogFilePath);
             var feed = new LiveFeed(Constants.LiveFeedUrl, _cachePath);
 
             _installer = new Installer(feed, store);

@@ -1,4 +1,4 @@
-# Web Essentials 2017
+  # Web Essentials 2017
 
 [![Build status](https://ci.appveyor.com/api/projects/status/d99l7mvb0wcf5523?svg=true)](https://ci.appveyor.com/project/madskristensen/webessentials2017)
 
@@ -9,8 +9,7 @@ or get the
 
 ------------------------------------
 
-A Visual Studio extension that installs a short list of
-highly valuable extensions targeted web development.
+The easiest way to set up Visual Studio for the ultimate web development experience. Requires Visual Studio 2017 Update 3 or newer.
 
 See the [change log](CHANGELOG.md) for changes and road map.
 

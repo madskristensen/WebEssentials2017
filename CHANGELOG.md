@@ -7,6 +7,7 @@
 - [x] Ability to uninstall extensions that are no longer recommended
   - [x] Based on user's version of VS
 - [x] Move strings to resx file
+- [x] Better error handling
 
 Features that have a checkmark are complete and available for
 download in the

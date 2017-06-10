@@ -152,7 +152,6 @@ namespace WebEssentials
                     IInstallableExtension installable = repository.Download(entry);
 #endif
                     Logger.Log(Resources.Text.Ok); // Download ok
-
                     Logger.Log("  " + Resources.Text.Installing, false);
 #if !DEBUG
                     manager.Install(installable, false);
@@ -160,7 +159,6 @@ namespace WebEssentials
                     Thread.Sleep(2000);
 #endif
                     Logger.Log(Resources.Text.Ok); // Install ok
-
                     Telemetry.Install(extension.Id, true);
                 }
                 else

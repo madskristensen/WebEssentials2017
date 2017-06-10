@@ -121,7 +121,7 @@
     <value>Web Essentials 2017</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>The easiest way to set up Visual Studio for the ultimate web development experience.</value>
+    <value>The easiest way to set up Visual Studio for the ultimate web development experience. Requires Visual Studio 2017 Update 3 or newer</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

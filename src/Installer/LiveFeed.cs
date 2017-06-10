@@ -77,20 +77,25 @@ namespace WebEssentials
         private async Task<bool> DownloadFileAsync()
         {
             string oldContent = File.Exists(LocalCachePath) ? File.ReadAllText(LocalCachePath) : "";
+            string newContent = oldContent;
 
             try
             {
                 using (var client = new WebClient())
                 {
-                    string response = await client.DownloadStringTaskAsync(LiveFeedUrl);
+                    newContent = await client.DownloadStringTaskAsync(LiveFeedUrl).ConfigureAwait(false);
+
+                    // Bail as early as possible to minimize package init time
+                    if (newContent == oldContent)
+                        return false;
 
                     // Test if reponse is a valid JSON object
-                    var json = JObject.Parse(response);
+                    var json = JObject.Parse(newContent);
 
                     if (json != null)
                     {
                         Directory.CreateDirectory(Path.GetDirectoryName(LocalCachePath));
-                        File.WriteAllText(LocalCachePath, response);
+                        File.WriteAllText(LocalCachePath, newContent);
                     }
                 }
             }
@@ -99,8 +104,6 @@ namespace WebEssentials
                 System.Diagnostics.Debug.Write(ex);
                 return false;
             }
-
-            string newContent = File.ReadAllText(LocalCachePath);
 
             return oldContent != newContent;
         }
