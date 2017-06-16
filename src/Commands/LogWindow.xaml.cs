@@ -11,7 +11,6 @@ namespace WebEssentials.Commands
     /// </summary>
     public partial class LogWindow : Window
     {
-
         public LogWindow()
         {
             InitializeComponent();
@@ -25,7 +24,7 @@ namespace WebEssentials.Commands
                 log.Text = string.Join(Environment.NewLine, logs);
 
                 reset.Content = WebEssentials.Resources.Text.ReInstall;
-                Close.Content = WebEssentials.Resources.Text.Close;
+                close.Content = WebEssentials.Resources.Text.Close;
                 ActivityLog.Content = WebEssentials.Resources.Text.ActivityLog;
 
                 reset.Click += ResetClickAsync;

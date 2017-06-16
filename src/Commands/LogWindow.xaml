@@ -18,6 +18,6 @@
         <TextBox Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="0" VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow"  Name="log" Margin="12 0" Text="2017-01-12 Installed extension" />
 
         <Button Grid.Row="3" Name="reset" HorizontalAlignment="Right" Margin="8" Padding="10 3" Content="Reset..." />
-        <Button Grid.Row="3" Name="Close" Grid.Column="1" HorizontalAlignment="Right" Margin="8" Padding="10 3" Content="Close" IsCancel="True" IsDefault="True" />
+        <Button Grid.Row="3" Name="close" Grid.Column="1" HorizontalAlignment="Right" Margin="8" Padding="10 3" Content="Close" IsCancel="True" IsDefault="True" />
     </Grid>
 </Window>
