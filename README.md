@@ -54,6 +54,7 @@ interest.
 - [Open in VS Code](https://visualstudiogallery.msdn.microsoft.com/33f6f3fd-68e8-4783-b934-ece91a08d265)
 - [Text Generator](https://visualstudiogallery.msdn.microsoft.com/4d809607-87dd-445c-8cd4-585da67c6beb)
 - [Trailing Whitespace Visualizer](https://visualstudiogallery.msdn.microsoft.com/a204e29b-1778-4dae-affd-209bea658a59)
+- [Browser Link Inspector](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BrowserLinkInspector2017)
 
 ## Installing
 It doesn't take long to install the extensions. Probably less
