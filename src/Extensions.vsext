@@ -1,0 +1,84 @@
+{
+  "id": "WebEssentials2017",
+  "name": "Web Essentials 2017",
+  "description": "A pack of extensions for web development.",
+  "version": "1.0.0.0",
+  "extensions": [
+    {
+      "vsixId": "2E78AA18-E864-4FBB-B8C8-6186FC865DB3",
+      "name": "Add New File"
+    },
+    {
+      "vsixId": "2d8aa02a-8810-421f-97b9-86efc573fea3",
+      "name": "Reload On Save"
+    },
+    {
+      "vsixId": "10d9b3af-1338-4c45-bc99-4ec38c3a11fb",
+      "name": "Browser Sync"
+    },
+    {
+      "vsixId": "a0ae318b-4f07-4f71-93cb-f21d3f03c6d3",
+      "name": "Bundler & Minifier"
+    },
+    {
+      "vsixId": "0020efc9-e999-4e6f-a2b6-604127f480bc",
+      "name": "CSS Tools"
+    },
+    {
+      "vsixId": "a3112f81-e423-4f88-9f2c-e089a309e48e",
+      "name": "Editor Enhancements"
+    },
+    {
+      "vsixId": "1209461d-57f8-46a4-814a-dbe5fecef941",
+      "name": "Editor Config Language Service"
+    },
+    {
+      "vsixId": "3a7b4930-a5fb-46ec-a9b8-9610c8f953b8",
+      "name": "File Icons"
+    },
+    {
+      "vsixId": "6c799bc4-0d4c-4172-98bc-5d464b612dca",
+      "name": "File Nesting"
+    },
+    {
+      "vsixId": "3cef2919-d8c7-4e9f-a809-5a0ba9c61fac",
+      "name": "HTML Tools"
+    },
+    {
+      "vsixId": "bf95754f-93d3-42ff-bfe3-e05d23188b08",
+      "name": "Image Optimizer"
+    },
+    {
+      "vsixId": "cd92c0c6-2c32-49a3-83ca-0dc767c7d78e",
+      "name": "Image Sprites"
+    },
+    {
+      "vsixId": "9ca64947-e9ca-4543-bfb8-6cce9be19fd6",
+      "name": "Markdown Editor"
+    },
+    {
+      "vsixId": "f4ab1e64-5d35-4f06-bad9-bf414f4b3bbb",
+      "name": "Open Command Line"
+    },
+    {
+      "vsixId": "fdd64809-376e-4542-92ce-808a8df06bcc",
+      "name": "Package Installer"
+    },
+    {
+      "vsixId": "1fd37423-142f-4267-8221-93163d573b90",
+      "name": "Package Security Alerts"
+    },
+    {
+      "vsixId": "e22f3d7e-6b01-4ef8-b3cb-ea293a87b00e",
+      "name": "Project File Tools"
+    },
+    {
+      "vsixId": "25a79d25-0fff-4748-afaa-3a67ed116bc9",
+      "name": "Web Accessibility Checker"
+    },
+    {
+      "vsixId": "148ffa77-d70a-407f-892b-9ee542346862",
+      "name": "Web Compiler"
+    }
+  ]
+}
