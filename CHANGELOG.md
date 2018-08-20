@@ -1,13 +1,6 @@
 # Road map
 
-- [x] Replace UI with Task Status Center
-- [x] Dynamic update extension list without releasing new version
-- [x] Async background load of extension
-- [x] Log of installation actions
-- [x] Ability to uninstall extensions that are no longer recommended
-  - [x] Based on user's version of VS
-- [x] Move strings to resx file
-- [x] Better error handling
+- [ ] Nothing yet...
 
 Features that have a checkmark are complete and available for
 download in the
@@ -18,10 +11,21 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
+## 2.0
+- [x] Converted to Extension Pack
+
 ## 1.5
 
 - [x] Project File Tools
 - [x] Razor Language Service
+- [x] Replace UI with Task Status Center
+- [x] Dynamic update extension list without releasing new version
+- [x] Async background load of extension
+- [x] Log of installation actions
+- [x] Ability to uninstall extensions that are no longer recommended
+  - [x] Based on user's version of VS
+- [x] Move strings to resx file
+- [x] Better error handling
 
 ## 1.4
 

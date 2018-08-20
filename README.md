@@ -9,7 +9,7 @@ or get the
 
 ------------------------------------
 
-The easiest way to set up Visual Studio for the ultimate web development experience. Requires Visual Studio 2017 Update 3 or newer.
+The easiest way to set up Visual Studio for the ultimate web development experience. Requires Visual Studio 2017 Update 8 or newer.
 
 See the [change log](CHANGELOG.md) for changes and road map.
 
@@ -54,29 +54,6 @@ interest.
 - [Open in VS Code](https://visualstudiogallery.msdn.microsoft.com/33f6f3fd-68e8-4783-b934-ece91a08d265)
 - [Text Generator](https://visualstudiogallery.msdn.microsoft.com/4d809607-87dd-445c-8cd4-585da67c6beb)
 - [Trailing Whitespace Visualizer](https://visualstudiogallery.msdn.microsoft.com/a204e29b-1778-4dae-affd-209bea658a59)
-
-## Installing
-It doesn't take long to install the extensions. Probably less
-than a minute. The progress is shown in the new Task Status Center in the left corner of the Status Bar.
-
-![Installing progress](art/task-status.png)
-
-When installation is done you will be prompted to restart
-Visual Studio. After the restart, all the extensions are
-fully functional and ready to use.
-
-## Reset Web Essentials
-If you've uninstalled any of the extensions installed by Web Essentials, then those extensions won't be installed again automatically.
-
-To reset this behavior go to _Tools -> Web Essentials..._
-
-![Tools menu](art/tools-menu.png)
-
-This will show the Activity Log for Web Essentials.
-
-![Activity Log](art/activity-log.png)
-
-From here you can reset the extension. This will attempt to install any of the extensions previously uninstall or for other reasons are not currently installed.
 
 ## Suggest new extensions
 If you know of any good extensions that you think would benefit web
