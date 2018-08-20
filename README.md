@@ -54,6 +54,7 @@ interest.
 - [Open in VS Code](https://visualstudiogallery.msdn.microsoft.com/33f6f3fd-68e8-4783-b934-ece91a08d265)
 - [Text Generator](https://visualstudiogallery.msdn.microsoft.com/4d809607-87dd-445c-8cd4-585da67c6beb)
 - [Trailing Whitespace Visualizer](https://visualstudiogallery.msdn.microsoft.com/a204e29b-1778-4dae-affd-209bea658a59)
+- [Browser Link Inspector](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BrowserLinkInspector2017)
 
 ## Suggest new extensions
 If you know of any good extensions that you think would benefit web
@@ -66,7 +67,7 @@ if you want to contribute to this project.
 
 For cloning and building this project yourself, make sure 
 to install the
-[Extensibility Tools 2015](https://visualstudiogallery.msdn.microsoft.com/ab39a092-1343-46e2-b0f1-6a3f91155aa6)
+[Extensibility Tools](https://visualstudiogallery.msdn.microsoft.com/ab39a092-1343-46e2-b0f1-6a3f91155aa6)
 extension for Visual Studio which enables some features
 used by this project.
 
