@@ -8,7 +8,7 @@ namespace WebEssentials
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    public sealed class ExperimantalFeaturesPackage : AsyncPackage
+    public sealed class WebEssentialsPackage : AsyncPackage
     {
     }
 }

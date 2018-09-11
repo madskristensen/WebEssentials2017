@@ -1,7 +1,4 @@
 {
-  "id": "WebEssentials2017",
-  "name": "Web Essentials 2017",
-  "description": "A pack of extensions for web development.",
   "version": "1.0.0.0",
   "extensions": [
     {
@@ -10,7 +7,7 @@
     },
     {
       "vsixId": "2d8aa02a-8810-421f-97b9-86efc573fea3",
-      "name": "Reload On Save"
+      "name": "Browser Reload On Save"
     },
     {
       "vsixId": "10d9b3af-1338-4c45-bc99-4ec38c3a11fb",
